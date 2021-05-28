@@ -1,0 +1,200 @@
+/*Diseño general */
+
+body{
+	padding-top: 56px;
+	background-color: #333;
+}
+.container{
+	background-color: black;
+	width: 100%;
+	max-width: 100%;
+	padding-left: 0;
+	padding-right: 0;
+
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+	grid-template-rows: repeat(4, auto);
+	grid-template-areas: "navbar"
+						 "slide"
+						 "cartelera"
+						 "footer"	;
+}
+
+
+
+/*Barra de navegación*/
+
+.navbar{
+	grid-area: navbar;
+}
+
+.navbar-brand{
+	font-family: Rubik Mono One;
+}
+
+/*Slide de imagenes*/
+
+.carousel{
+	grid-area: slide;
+}
+
+
+/*Cartelera*/
+
+.cabecera_cartelera{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin-bottom: 20px;
+}
+
+.titulo_cartelera{
+	font-size: 32px;
+}
+
+.formulario_select_sucursal{
+	width: 95%;
+	grid-area: selector;
+	display: flex;
+}
+
+.titulo_seccion{
+	font-size: 24px;
+}
+
+.formulario_select_sucursal select{
+	padding: 10px;
+	background-color: black;
+	border: 1px solid white;
+	color: white;
+}
+
+.cartelera{
+	grid-area: cartelera;
+	width: 95%;
+	margin: 40px auto 40px auto;
+}
+
+.posters{
+	display: grid;
+	grid-template-columns: repeat(auto-fill,190px);
+	grid-gap: 0.5rem;
+	justify-content: space-around;
+}
+
+/*Pie de pagina*/
+footer{
+	grid-area: footer;
+	background-color: #333;
+	color: #808080;
+	padding: 20px;
+}
+
+
+
+
+
+/*Diseño de secciones de administradores*/
+.container_alternative{
+		width: 100%;
+		background-color: #d6d4d4;
+
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(4, auto);
+		grid-template-areas: "navbar navbar navbar navbar"
+							 "titulo titulo titulo titulo"
+							 ". formulario formulario ."
+							 "footer footer footer footer"	;
+}
+
+.container_alter_tablas{
+		width: 100%;
+		background-color: #d6d4d4;
+
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(4, auto);
+		grid-template-areas: "navbar navbar navbar navbar"
+							 "titulo titulo titulo titulo"
+							 "formulario formulario formulario formulario"
+							 "footer footer footer footer"	;
+}
+
+.container_form{
+	width: 100%;
+	padding: 50px;
+	grid-area: formulario;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+
+.titulo_seccion{
+	grid-area: titulo;
+
+	height: 72px;
+	padding-left: 16px;
+	background-color: #333;
+	display: flex;
+	align-items: center;
+}
+
+.titulo_seccion h2{
+	margin-left : 13px;
+	color: white;
+	font-family: sans-serif;
+	font-size: 16px;
+}
+
+.formulario{
+	display: flex;
+	flex-direction: column;
+
+}
+
+label{
+	margin-top: 5px;
+	margin-bottom: 0;
+}
+
+.formulario input, .formulario textarea, .formulario select{
+	width: 350px;
+	height: 40px;
+}
+
+.submit{
+	width: 100px;
+	margin-top: 20px;
+	
+}
+
+.volver{
+	width: 350px;
+	margin: 5px auto 0 auto;
+}
+
+
+/*Botones de modificar y eliminar (solo si estan uno arriba de otro)*/
+.edit_btn{
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+
+.container_pelicula{
+	width: 100%;
+	background-color: #333;
+
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, auto);
+	grid-template-areas: "columna1 columna2"
+						 "columna1 columna2";
+
+
+}
