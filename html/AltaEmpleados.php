@@ -15,7 +15,7 @@
 	<!-- Barra de navegación principal -->
 		<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #000000;">
 		  	<div class="container-fluid">
-					  <a class="navbar-brand" href="#">CINEMA</a>
+					  <a class="navbar-brand" href="../controllers/index.php">CINEMA</a>
 					  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					    <span class="navbar-toggler-icon"></span>
 					  </button>
@@ -36,19 +36,19 @@
 			<p>Por favor ingrese los datos del empleado</p>
 			<form class="formulario" action="" method="POST">		
 						<label for="nombre">Nombre</label>
-						<input type="text" name="nombre" maxlength="20" id="nombre" required>
+						<input class="input_general" type="text" name="nombre" maxlength="20" id="nombre" required>
 						<label for="apellido">Apellido</label>
-						<input type="text" name="apellido" maxlength="20" id="apellido" required>
+						<input class="input_general" type="text" name="apellido" maxlength="20" id="apellido" required>
 						<label for="telefono">Teléfono</label>
-						<input type="text" name="telefono" maxlength="20" required>
+						<input class="input_general" type="text" name="telefono" maxlength="20" required>
 						<label for="direccion">Dirección</label>
 						<input type="text" name="direccion" maxlength="20" id="direccion" required>
 						<label for="cuit">Cuit</label>
-						<input type="text" name="cuit" maxlength="20" id="cuit" required>
+						<input class="input_general" type="text" name="cuit" maxlength="20" id="cuit" required>
 						<label for="sucursal">Sucursal</label>
 							<?php
 								echo'
-									<select name="sucursal" id="sucursal">';
+									<select class="input_general" name="sucursal" id="sucursal">';
 									foreach ($this->sucursales as $s) {
 										echo '<option value="'.$s['id_sucursal'].'">
 										'.$s['descripcion'].'
@@ -58,9 +58,9 @@
 							?>
 						</td>
 						<label for="usuario">Usuario</label>
-						<input type="text" name="usuario" maxlength="20" id="usuario" required>
+						<input class="input_general" type="text" name="usuario" maxlength="20" id="usuario" required>
 						<label for="contrasenia">Contraseña</label>
-						<input type="password" name="contrasenia" maxlength="20" id="contrasenia" required>
+						<input class="input_general" type="password" name="contrasenia" maxlength="20" id="contrasenia" required>
 						
 				
 				<input type="submit" name="setSubmit" value="Guardar" class="submit">

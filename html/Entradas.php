@@ -30,9 +30,9 @@
 			</nav>
 	<!-- detalles pelicula -->
 					<?php foreach ($this->pelicula as $peli){ ?>
-					<div class="titulo_seccion"> <h3>Entradas para: <?= $peli['titulo'] ?></h3></div>
+					<div class="titulo_seccion"> <h3 class="titulo_pelicula">Entradas para: <?= $peli['titulo'] ?></h3></div>
 					<div class="container_pelicula_entradas">	
-						<img src=" data:image;base64, <?= base64_encode($peli['poster']) ?>" class="poster">
+						<div class="poster"><img src=" data:image;base64, <?= base64_encode($peli['poster']) ?>"> </div>
 						
 						<div class="detalles">
 				  			<p><b>Genero:</b> <?= $peli['genero'] ?> </p>
@@ -90,7 +90,12 @@
 						 	<label for="cantidad">Cantidad:</label>
 							<input type="number" name="cantidad" min="1" value="1" class="cantidad_entradas" id="cantidad">
 
-							<button type="submit" class="btn btn-warning pagar">CONFIRMAR COMPRA</button>
+									
+							<input type="hidden" name="id_pelicula" value="<?= $peli['id_pelicula'] ?>">	
+								<button type="submit" class="btn btn-warning pagar">
+									CONFIRMAR COMPRA
+								</button>	
+						
 						</form>
 					</div>
  	<!-- Pie de pagina-->

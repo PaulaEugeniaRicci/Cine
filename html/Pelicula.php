@@ -30,12 +30,11 @@
 			</nav>
 	<!-- detalles pelicula -->
 					<?php foreach ($this->pelicula as $peli){ ?>
-					<div class="titulo_seccion"> <h3><?= $peli['titulo'] ?></h3></div>
-					<div class="container_pelicula_detalles">
-					
+					<div class="titulo_seccion"><h3 class="titulo_pelicula"><?= $peli['titulo'] ?></h3></div>
+					<div class="container_pelicula_detalles">		
 						
 					
-						<img src=" data:image;base64, <?= base64_encode($peli['poster']) ?>" class="poster">
+						<div class="poster"><img src=" data:image;base64, <?= base64_encode($peli['poster']) ?>" ></div>
 						<iframe class="trailer" width="693" height="390" src="https://www.youtube.com/embed/<?= $peli['trailer'] ?>" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 						<p class="sinopsis"><?= $peli['descripcion'] ?></p>
@@ -49,8 +48,12 @@
 				  			<p><b>Subtitulado:</b> <?= $peli['subtitulado'] ?> </p>
 			  			</div>
 						
-						
-						<a href="../controllers/entradas.php" class="btn btn-warning pagar">ADQUIRIR ENTRADAS</a>
+						<form action ="../controllers/entradas.php" s method="POST">				
+							<input type="hidden" name="id_pelicula" value="<?= $peli['id_pelicula'] ?>">	
+							<button type="submit" class="btn btn-warning pagar">
+							ADQUIRIR ENTRADAS
+							</button>	
+						</form>
 					<?php	} ?>
 </div>
  	<!-- Pie de pagina-->

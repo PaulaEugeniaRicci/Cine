@@ -31,7 +31,7 @@
 			</div>
 		</nav>
 		<!-- Barra con titulo de sección -->		
-		<div class= "titulo_seccion"><h2>LISTADO DE PELICULAS</h2></div>
+		<div class= "titulo_seccion"><h2>LISTADO DE ANUNCIOS</h2></div>
 
 		<!-- Tabla -->
 		<div class="container_form">

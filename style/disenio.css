@@ -1,10 +1,30 @@
-/*Diseño general */
-
 body{
 	padding-top: 56px;
 	background-color: #333;
 }
-.container{
+
+/*//////BARRA DE NAVEGACION QUE SE VE ARRIBA//////*/
+/*Barra completa*/
+.navbar{
+	grid-area: navbar;
+}
+
+/*Titulo*/
+.navbar-brand{
+	font-family: Rubik Mono One;
+}
+
+/*////PIE DE PAGINA DE TODAS LAS PANTALLAS/////*/
+footer{
+	grid-area: footer;
+	background-color: #333;
+	color: #808080;
+	padding: 20px;
+}
+
+/*///////DISEÑO DE LA PAGINA PRINCIPAL DEL SITIO////////*/
+/*contenedor del sitio index*/
+.container_index{
 	background-color: black;
 	width: 100%;
 	max-width: 100%;
@@ -20,79 +40,104 @@ body{
 						 "footer"	;
 }
 
-
-
-/*Barra de navegación*/
-
-.navbar{
-	grid-area: navbar;
-}
-
-.navbar-brand{
-	font-family: Rubik Mono One;
-}
-
-/*Slide de imagenes*/
-
+/*Carrousel de anuncios (SLIDE)*/
 .carousel{
 	grid-area: slide;
 }
 
-
-/*Cartelera*/
-
-.cabecera_cartelera{
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	margin-bottom: 20px;
-}
-
-.titulo_cartelera{
-	font-size: 32px;
-}
-
-.formulario_select_sucursal{
-	width: 95%;
-	grid-area: selector;
-	display: flex;
-}
-
-.titulo_seccion{
-	font-size: 24px;
-}
-
-.formulario_select_sucursal select{
-	padding: 10px;
-	background-color: black;
-	border: 1px solid white;
-	color: white;
-}
-
+/*Contenedor de toda la seccion de cartelera*/
 .cartelera{
 	grid-area: cartelera;
 	width: 95%;
 	margin: 40px auto 40px auto;
 }
 
+/*Contenedor de titulo de cartelera y los selects*/
+.cabecera_cartelera{
+	width: 100%;
+	margin-bottom: 20px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: wrap;	
+}
+
+/*Titulo de la cartelera*/
+.titulo_cartelera{
+	font-size: 32px;
+}
+
+/*Formulario que contiene los selects de la cartelera (filtros)*/
+.formulario_select_sucursal{
+	width: 95%;
+	grid-area: selector;
+	display: flex;
+
+}
+
+/*Selects del formulario de la cartelera (filtros)*/
+.formulario_select_sucursal select{
+	padding: 10px;
+	background-color: black;
+	border: 1px solid white;
+	color: white;
+	border-radius: 4px;
+}
+
+.items_cartelera{
+	display: flex;
+	column-gap: 15px;
+}
+
+.boton_verTodo{
+	width: 100px;
+	height: 100%;
+	border: 0;
+	cursor: pointer;
+}
+
+/*Contenedor de los posters junto a sus titulos*/
 .posters{
 	display: grid;
-	grid-template-columns: repeat(auto-fill,190px);
+	grid-template-columns: repeat(auto-fill, 200px);
+	grid-auto-rows: 300px;
 	grid-gap: 0.5rem;
 	justify-content: space-around;
 }
 
-/*Pie de pagina*/
-footer{
-	grid-area: footer;
-	background-color: #333;
-	color: #808080;
-	padding: 20px;
+.box_img{
+	width: 200px;
+	height: 285px;
+}
+.peli_cartelera img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	position: center;
 }
 
+.texto_poster{
+	display: block;
+	background-color: #4781ff;
+	text-align: center;
+	color: white;
+	white-space: nowrap;
+	overflow: hidden;
+}
 
+.boton_poster{
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	border: 0;
+}
+
+.boton_poster:hover{
+	cursor: pointer;
+}
+
+/*////////////////////////////////////////*/
 
 
 
@@ -123,17 +168,7 @@ footer{
 							 "footer footer footer footer"	;
 }
 
-.container_form{
-	width: 100%;
-	padding: 50px;
-	grid-area: formulario;
-
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-
+/*Barra debajo del navbar que contiene el titulo del area en que se encuentra*/
 .titulo_seccion{
 	grid-area: titulo;
 
@@ -144,6 +179,7 @@ footer{
 	align-items: center;
 }
 
+/*Titulo de la barra que está debajo del navbar*/
 .titulo_seccion h2{
 	margin-left : 13px;
 	color: white;
@@ -151,50 +187,306 @@ footer{
 	font-size: 16px;
 }
 
+/*Contenedor del formulario de las secciones de admin*/
+.container_form{
+	width: 100%;
+	padding: 50px;
+	grid-area: formulario;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/*EL formulario*/
 .formulario{
 	display: flex;
 	flex-direction: column;
 
 }
 
+/*Etiquetas de los campos*/
 label{
 	margin-top: 5px;
 	margin-bottom: 0;
 }
 
-.formulario input, .formulario textarea, .formulario select{
+.input_general{
 	width: 350px;
 	height: 40px;
 }
 
-.submit{
-	width: 100px;
-	margin-top: 20px;
-	
+.input_check{
+
 }
 
+.group_checkbox{
+	display: flex;
+}
+
+.group_checkbox_column1, .group_checkbox_column2{
+	width: 49%;
+
+	display: flex;
+	flex-direction: column;
+}
+
+/*Botón de submit en los formularios*/
+.submit{
+	width: 200px;
+	margin: 20px auto 0 auto;
+	height: 38px;
+}
+
+/*Botón de volver en los formularios*/
 .volver{
-	width: 350px;
+	width: 200px;
 	margin: 5px auto 0 auto;
 }
 
-
-/*Botones de modificar y eliminar (solo si estan uno arriba de otro)*/
+/*Botones de modificar y eliminar en las tablas(correcion para los que se encuentran uno arriba de otro)*/
 .edit_btn{
 	width: 100%;
 	margin-bottom: 5px;
 }
 
 
+/*///////DISEÑO DE LA PAGINA CON LA INFORMACIÓN SOBRE LA PELICULA/////////*/
 .container_pelicula{
 	width: 100%;
-	background-color: #333;
+
+	background-color: white;
 
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(1, 1fr);
+	grid-template-rows: repeat(4, auto);
+	grid-template-areas: "navbar "
+						"titulo"
+						 "pelicula"
+						 "footer";
+
+}
+
+.titulo_pelicula{
+	color: white;
+	font-family: sans-serif;
+	font-size: 1.8rem;
+	font-weight: bold;
+	margin: auto;
+	text-transform: uppercase;
+}
+
+
+.container_pelicula_detalles{
+	width: 88%;
+	background-color: #efefef;
+	margin: 30px auto 40px auto;
+	padding: 20px 70px 20px 70px;
+	grid-area: pelicula;
+
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, auto);
+	grid-template-areas: "poster trailer trailer "
+						 "sinopsis sinopsis detalles"
+						 "comprar . detalles";
+	grid-row-gap: 20px;
+	grid-column-gap: 40px;
+}
+
+.poster{
+	grid-area: poster;
+	height: 390px;	
+}
+
+.poster img{
+	width: 259Px;
+	height: 390px;
+	object-fit: cover;
+}
+
+.trailer{
+	grid-area: trailer;
+	justify-self: end;
+}
+
+.sinopsis{
+	grid-area: sinopsis;
+}
+
+.detalles{
+	grid-area: detalles;
+
+	font-family: helvetica;
+	font-size: 12px;
+}
+
+/*boton de comprar*/
+.comprar{
+	grid-area: comprar;
+	max-width: 285px;
+	height: 43px;
+	align-self: center;
+	font-weight: bold;	
+}
+
+
+/*/////DISEÑO DE LA PAGINA DE PEDIDO DE ENTRADAS///////*/
+.container_pelicula_entradas{
+	width: 88%;
+	background-color: #efefef;
+	margin: 30px auto 40px auto;
+	padding: 20px 70px 20px 70px;
+	grid-area: pelicula;
+
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(2, auto);
-	grid-template-areas: "columna1 columna2"
-						 "columna1 columna2";
+	grid-template-areas: "poster form form form"
+						 "detalles form form form"	 ;
+	grid-row-gap: 20px;
+	grid-column-gap: 40px;
 
 
 }
+
+
+.form_compra{
+	grid-area: form;
+	display: flex;
+	flex-direction: column;
+	gap:12px;
+}
+
+.entrada_sucursal{
+	grid-area: form;
+	width: 250px;
+	height: 40px;
+}
+
+
+.radio{
+	display: none;
+
+}
+
+.container_fechas{
+	display: flex;
+	flex-direction: row;
+	column-gap: 5px;
+
+}
+
+.dia{
+	background-color: #c20000;
+	border-top: #e0b32e;
+	color: white;
+	font-size: 12px;
+}
+
+
+.lbl-fecha{
+	background-color: white;
+	border:1px solid #e0b32e;
+	width: 75px;
+	height:75px;
+	cursor: pointer;
+	text-align: center;
+	
+	display: flex;
+	flex-direction: column;
+	
+}
+
+.lbl-fecha:hover{
+	border:1px solid blue;
+}
+
+
+.lbl-horario{
+	text-align: center;
+	width: 75px;
+	height:25px;
+	cursor: pointer;
+	box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+input[type="radio"]:checked + .lbl-radio{
+	border:1px solid blue;
+}
+
+.cantidad_entradas{
+	width: 250px;
+}
+
+.pagar{
+	max-width: 285px;
+	width: 285px;
+	height: 43px;
+	font-weight: bold;
+	margin-top: auto;
+	align-self: flex-end;
+}
+
+
+/*/////DISEÑO DE LA PAGINA DE PAGO////*/
+
+.container_pelicula_pago{
+	width: 88%;
+	background-color: #efefef;
+	margin: 30px auto 40px auto;
+	padding: 20px 70px 20px 70px;
+	grid-area: pelicula;
+
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(2, 390px);
+	grid-template-areas: "poster centro centro centro  "
+						"detalles centro centro centro"
+						 	 ;
+	grid-row-gap: 20px;
+	grid-column-gap: 40px;
+
+
+
+}
+
+.form_pago{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top:10px; 
+}
+.centro{
+	grid-area: centro;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.detalle_pedido{
+	grid-area: pedido;
+	background-color: white;
+	font-size: 12px;
+
+}
+.inputs_pago{
+	display: flex;
+	flex-direction: column;
+	width: 49%;
+	grid-row-gap: 2px;
+}
+
+.columnas_pago{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.btn_conf_pago{
+	margin: 30px auto 10px auto;
+}
+
+
+
+

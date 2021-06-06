@@ -12,22 +12,28 @@
 	require'../fw/fw.php';
 	require'../models/Peliculas.php';
 	require'../views/Entradas.php';
-		require'../models/Sucursales.php';
+	require'../models/Sucursales.php';
 
+if(isset($_POST['id_pelicula'])){
 	$pelis = new Peliculas;			// Un modelo
-	$v = new Entradas;		// Vista, se carga con lo obtenido de modelos
-$suc = new Sucursales;
+	$suc = new Sucursales;
 
 	try{ 
-			$todos = $pelis->getTodos(); 
-			$v->pelicula = $todos;
+			$peli = $pelis->getPelicula($_POST['id_pelicula']); 
 			$todosSuc= $suc->getTodos();
-			$v->sucursales = $todosSuc;
+
+			
 		}
 		catch (ExcepcionPelicula $e){ 
 			die($e->getMessage()); 
 		}
 
-	$v-> render();
+
+}
+$v = new Entradas;		// Vista, se carga con lo obtenido de modelos
+$v->pelicula = $peli;			
+$v->sucursales = $todosSuc;
+$v->render();
+	
 
 

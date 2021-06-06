@@ -5,4 +5,5 @@
 class Entradas extends View {
 
 	public $pelicula;
+	public $sucursales;
 }

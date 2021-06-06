@@ -6,7 +6,32 @@
 		
 		//RETORNAR TODAS LAS FILAS 
 		public function getTodos(){
-			$this->db->query("SELECT p.id_pelicula, p.id_clasificacion, p.idioma_original, p.subtitulado, p.titulo, p.director, p.descripcion, p.duracion, p.estreno, c.descripcion_clasificacion, i.descripcion_idioma, GROUP_CONCAT(g.descripcion_genero SEPARATOR ', ') as genero
+			$this->db->query("SELECT p.id_pelicula, p.id_clasificacion, p.idioma_original, p.subtitulado, p.titulo, p.director, p.descripcion, p.duracion, p.estreno, c.descripcion_clasificacion, i.descripcion_idioma, p.poster, p.trailer, GROUP_CONCAT(g.descripcion_genero SEPARATOR ', ') as genero
+				FROM peliculas p 
+				LEFT JOIN clasificaciones c ON p.id_clasificacion = c.id_clasificacion
+				LEFT JOIN idiomas i ON p.idioma_original = i.id_idioma
+				LEFT JOIN generosdepeliculas gp ON p.id_pelicula = gp.id_pelicula
+				LEFT JOIN generos g ON gp.id_genero = g.id_genero
+				group by p.id_pelicula
+				");
+			return $this->db->fetchAll();
+		}
+
+		public function getPelicula($id_pelicula){
+			$this->db->query("SELECT p.id_pelicula, p.id_clasificacion, p.idioma_original, p.subtitulado, p.titulo, p.director, p.descripcion, p.duracion, p.estreno, c.descripcion_clasificacion, i.descripcion_idioma, p.poster, p.trailer, GROUP_CONCAT(g.descripcion_genero SEPARATOR ', ') as genero
+				FROM peliculas p
+				LEFT JOIN clasificaciones c ON p.id_clasificacion = c.id_clasificacion
+				LEFT JOIN idiomas i ON p.idioma_original = i.id_idioma
+				LEFT JOIN generosdepeliculas gp ON p.id_pelicula = gp.id_pelicula
+				LEFT JOIN generos g ON gp.id_genero = g.id_genero
+				WHERE p.id_pelicula = $id_pelicula
+				 ");
+
+			return $this->db->fetchAll();
+		}
+
+		public function getPelisSucursal(){ //hay que modificarlo
+			$this->db->query("SELECT p.id_pelicula, p.id_clasificacion, p.idioma_original, p.subtitulado, p.titulo, p.director, p.descripcion, p.duracion, p.estreno, c.descripcion_clasificacion, i.descripcion_idioma, p.poster, p.trailer, GROUP_CONCAT(g.descripcion_genero SEPARATOR ', ') as genero
 				FROM peliculas p 
 				LEFT JOIN clasificaciones c ON p.id_clasificacion = c.id_clasificacion
 				LEFT JOIN idiomas i ON p.idioma_original = i.id_idioma
@@ -176,6 +201,7 @@
 			//BAJA en tabla GENEROSDEPELICULAS
 			$this->db->query("DELETE FROM generosdepeliculas WHERE id_pelicula = $id");
 		}
+
 
 
 	}

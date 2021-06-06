@@ -29,7 +29,7 @@
 		if(empty($_POST['trailer']))die("Debe ingresar el trailer de la pelicula");		
 		
 		$poster= addslashes(file_get_contents($_FILES['poster']['tmp_name'])); 
-		$genero = $_POST['genero'];
+		
 		
 
 		$peli = new Peliculas;

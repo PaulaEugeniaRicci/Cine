@@ -13,17 +13,23 @@
 	require'../models/Peliculas.php';
 	require'../views/Pelicula.php';
 
-	$pelis = new Peliculas;			// Un modelo
-	$v = new Pelicula;		// Vista, se carga con lo obtenido de modelos
+	if(isset($_POST['id_pelicula'])){
+		
 
 
-	try{ 
-			$todos = $pelis->getTodos(); 
-			$v->pelicula = $todos;
+		$pelis = new Peliculas;			// Un modelo
+
+		try{ 
+			$datos_peli = $pelis->getPelicula($_POST['id_pelicula']);
 		}
 		catch (ExcepcionPelicula $e){ 
 			die($e->getMessage()); 
 		}
+	}
+
+	
+	$v = new Pelicula;		// Vista, se carga con lo obtenido de modelos
+	$v->pelicula = $datos_peli ;
 
 	$v-> render();
 

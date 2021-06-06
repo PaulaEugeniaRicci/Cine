@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="../style/disenio.css ">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One">
-  	<title>Agregar proyección</title>
+  	<title>Alta de anuncios</title>
 </head>
 <body>
 
@@ -29,65 +29,17 @@
 				</div>
 			</nav>
 	<!-- Barra con titulo de sección -->	
-			<div class= "titulo_seccion"><h2>ALTA DE PROYECCIONES</h2></div>
+			<div class= "titulo_seccion"><h2>ALTA DE ANUNCIOS</h2></div>
 	<!-- formulario -->
-			<div class="calendario"><div class="titulo_fecha"></div></div>
 			<div class="container_form">
-	  			<p>Por favor ingrese los datos de la proyección</p>
-				<form class="formulario" action="" method="POST" >				
+	  			<p>Por favor ingrese el anuncio</p>
+				<form class="formulario" action="" method="POST" enctype="multipart/form-data">				
 						
-					<input type="hidden" name="sucursal" required>
-
-					<label for="pelicula">Pelicula</label>
-					<?php
-							echo'
-								<select class="input_general" name="pelicula" id="pelicula" required> <option value="" disabled selected> </option>';
-								foreach ($this->peliculas as $p) {
-									echo '<option value="'.$p['id_pelicula'].'">
-										'.$p['titulo'].'
-										</option>';
-									}
-								echo'</select>'
-						?>
-					
-					<label for="sala">Sala</label>
-						<?php
-							echo'
-								<select class="input_general"  name="sala" id="sala" required> <option value="" disabled selected> </option>';
-								foreach ($this->salas as $s) {
-									echo '<option value="'.$s['id_sala'].'">
-										'.$s['nombre'].' - '.$s['descripcion'].'
-										</option>';
-									}
-								echo'</select>'
-						?>
-
-					<label for="horario">Horarios</label>
-						<input class="input_general"  type="time" name="horario"  id="horario" required>
-
-					<label for="fecha1">Fecha inicial</label>
-						<input class="input_general"  type="date" name="fecha1"  id="fecha1" required>
-
-					<label for="fecha2">Fecha final</label>
-						<input  class="input_general"  type="date" name="fecha2"  id="fecha2" required>
-
-					<label for="dias">Días</label>
-					<div class="group_checkbox" id="dias">
-						<div class="group_checkbox_column1">
-							<input type="checkbox" name="dias[]" value="0">Lunes<br>
-							<input type="checkbox" name="dias[]" value="1">Martes<br>
-							<input type="checkbox" name="dias[]" value="2">Miercoles<br>
-							<input type="checkbox" name="dias[]" value="3">Jueves<br>
-						</div>
-						<div class="group_checkbox_column2">
-							<input type="checkbox" name="dias[]" value="4">Viernes<br>
-							<input type="checkbox" name="dias[]" value="5">Sabado<br>
-							<input type="checkbox" name="dias[]" value="6">Domingo<br>
-						</div>
-					</div>
+					<label for="imagen">Anuncio</label>
+						<input  class="input_general" type="file" name="imagen" id="imagen" required>		
 					
 					<input type="submit" name="setSubmit" value="Guardar" class="submit">
-					<a class="btn btn-primary volver" href="" class="">Volver</a>
+					<a class="btn btn-primary volver" href="listaAnuncios.php" class="">Volver</a>
 				</form>
 				
 			</div>
