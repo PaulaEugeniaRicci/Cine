@@ -10,46 +10,57 @@
 	*/
 
 	require'../fw/fw.php';
-	require'../models/Peliculas.php';
+	require'../models/Proyecciones.php';
 	require'../models/Sucursales.php';
-	require'../models/Generos.php';
 	require'../views/Index.php';
+	require'../views/ExcepcionIndex.php';
 
-	$pelis = new Peliculas;			// Un modelo
-	$suc = new Sucursales;
-	$v = new Index;		// Vista, se carga con lo obtenido de modelos
-	
-	if(isset($_POST['id_sucursal']) && $_POST['id_sucursal'] != 0){
+	$proy = new Proyecciones;			
+	$suc = new Sucursales;		
+	$v = new Index;
+	$vError = new ExcepcionIndex;		
+	  
 
-		try{ 
-				$todosPelis = $pelis->getPelisSucursal(); 
-				$todosSuc= $suc->getTodos();
-				$v->peliculas = $todosPelis;
-				$v->sucursales = $todosSuc;
-				
-				
-			}
-			catch (ExcepcionPelicula $e){ 
-				die($e->getMessage()); 
-			}
+	$sucursales= $suc->getTodos();
+	  
+	//Si el usuario eligió filtrado
+	if(!empty($_POST['sucursal']) && $_POST['sucursal'] != 0){
+
+		$v->id_sucursal = $_POST['sucursal'];
+		$id = $_POST['sucursal'];
+
+		try{
+			$proyecciones = $proy->getPelisProyeccionesSucursal($id);
+			$v->proyecciones = $proyecciones;
+		}
+		catch (ExcepcionProyeccion $ep){ 
+			$vError->mensaje = $ep->getMessage();
+			$vError->enlace = 'index.php';
+			$vError->sucursales = $sucursales;
+			$vError->id_sucursal = $_POST['sucursal'];
+			$vError-> render();
+			exit();
+		}				
 	}
-
-	if(!isset($_POST['id_sucursal']) or $_POST['id_sucursal'] == 0){
-
-		try{ 
-				$todosPelis = $pelis->getTodos(); 
-				$todosSuc= $suc->getTodos();
-				$v->peliculas = $todosPelis;
-				$v->sucursales = $todosSuc;
-				
-				
-			}
-			catch (ExcepcionPelicula $e){ 
-				die($e->getMessage()); 
-			}
-		}	
-
-
+	// Si el usuario recién ingresa o no eligió nada, se muestran todas las peliculas
+	elseif(empty($_POST['sucursal']) || $_POST['sucursal'] == 0) {
+		$v->id_sucursal = 0;
+	
+		try{
+			$proyecciones = $proy->getPelisProyecciones();
+			$v->proyecciones = $proyecciones;
+		}
+		catch (ExcepcionProyeccion $ep){ 
+			$vError->mensaje = $ep->getMessage();
+			$vError->enlace = 'index.php';
+			$vError->sucursales = $sucursales;
+			$vError->id_sucursal = $_POST['sucursal'];
+			$vError-> render();
+			exit();
+		}		
+	}
+		
+	$v->sucursales = $sucursales;
 	$v-> render();
 
 

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	 <!-- Bootstrap CSS -->
+	 <!-- Bootstrap CSS
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="../style/disenio.css ">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   	<title>Pelicula</title>
 </head>
 <body>
@@ -30,7 +31,7 @@
 			</nav>
 	<!-- detalles pelicula -->
 					<?php foreach ($this->pelicula as $peli){ ?>
-					<div class="titulo_seccion"> <h3 class="titulo_pelicula">Entradas para: <?= $peli['titulo'] ?></h3></div>
+					<div class="titulo_pelicula"> <h3><?= $peli['titulo'] ?></h3></div>
 					<div class="container_pelicula_pago">	
 						<div class="poster"><img src=" data:image;base64, <?= base64_encode($peli['poster']) ?>" ></div>
 						
@@ -45,23 +46,18 @@
 
 			  			<div class="centro">
 				  			<div class="detalle_pedido">
-				  				<p>Pelicula: <?= $peli['titulo'] ?> <br>
-								Sucursal: <br>
-								Sala:<br>
-								Asientos:<br>
-								Dia y horario:<br>
-								Cantidad de entradas:<br>
-								Total a abonar:
-							</p>
+				  				<ul style="list-style-type:none;">
+								    <li>Pelicula: <?= $peli['titulo'] ?></li>
+								    <li>Sucursal: </li>
+								    <li>Sala: <?= $peli['nombre'] ?></li>
+								    <li>Dia y horario: <?= $peli['fecha']?>hs. </li>
+								    <li>Cantidad de entradas: </li>
+								    <li>Total a abonar: $</li>
+								</ul>
 							</div>
 
 							<form action="" class="form_pago" id="form_pago" method="post">
-								<input type="hidden" name="id_pelicula" value="<?= $peli['id_pelicula'] ?>">
-								<input type="hidden" name="id_sucursal" value="">
-								<input type="hidden" name="id_sala" value="">
-								<input type="hidden" name="asientos" value="">
-								<input type="hidden" name="fecha" value="">
-								<input type="hidden" name="horario" value="">
+	
 								<div class="columnas_pago">
 									<fieldset class="inputs_pago">
 										<legend>Información de facturación</legend>
@@ -69,14 +65,13 @@
 										<input class="input_general" type="text" name="nombre" id="nombre" required>
 										<label for="apellido">Apellido</label>
 										<input class="input_general" type="text" name="apellido" id="apellido" required>
-										<label for="direccion">Dirección de facturación</label>
-										<input class="input_general" type="text" name="direccion" id="direccion" required>
-										<label for="localidad">Localidad</label>
-										<input class="input_general" type="text" name="localidad" id="localidad" required>
-										<label for="cp">Código postal</label>
-										<input class="input_general" type="text" name="cp" id="cp" required>
-										<label for="telefono">Teléfono</label>
+										<label for="dni">DNI</label>
+										<input class="input_general" type="text" name="dni" id="dni" required>
+										<label for="telefono">Telefono</label>
 										<input class="input_general" type="text" name="telefono" id="telefono" required>
+										<label for="email">EMAIL</label>
+										<input class="input_general" type="text" name="email" id="email" required>
+
 									</fieldset>
 
 									<fieldset class="inputs_pago">
@@ -101,12 +96,19 @@
 								</div>
 									<button type="submit" class="btn btn-warning btn_conf_pago">CONFIRMAR PAGO</button>
 							</form>
+							<a class="btn btn-primary" href="entradas.php?id_pelicula=<?=$peli['id_pelicula'] ?>&id_sucursal=<?=$peli['id_sucursal'] ?>" class="">Volver</a>
 						</div>
 					</div>
 
 				<?php } ?>
  	<!-- Pie de pagina-->
-			<footer><h1 class="navbar-brand">CINEMA</h1></footer>
+			<footer><div class="creditos">
+		<h5>CINEMA</h5>
+		
+		</div>
+		<div class="footer_login">
+			<a href="../controllers/listaPeliculas.php"><img src="../img/login.png" title="Acceso de personal"></a>
+		</div></footer>
 		</div>
 		<script>
 			document.getElementById("form_pago").onsubmit = function(){
@@ -133,17 +135,29 @@
 				
 		}
 		</script>
-	
-	 <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
-
-
-
 </html>
 
+<script type="text/javascript">
+	$(document).ready(function(){
 
+		//Agrego los valores que faltan al div de detalle_pedido
+		var sucursal;
+		var cant_entradas;
+		var monto;
+	    <?php
+	        $suc_descripcion = $this->sucursal;
+	        $cantidad_entradas = $this->cant_entradas;
+	        $monto = $this->monto;
+	    ?>	        		
+	    sucursal = "<?=$suc_descripcion?>";
+	    cant_entradas = <?=$cantidad_entradas?>;
+	    monto = <?=$monto?>;
+	   
+	    $( "li:eq( 2 )" ).append(sucursal);
+	    $( "li:eq( 5 )" ).append(cant_entradas);
+	    $( "li:eq( 6 )" ).append(monto);
+
+	});	
+</script>
 

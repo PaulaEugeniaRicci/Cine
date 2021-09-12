@@ -5,4 +5,5 @@
 class Pelicula extends View {
 
 	public $pelicula;
+	public $id_sucursal;
 }

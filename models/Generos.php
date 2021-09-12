@@ -10,8 +10,13 @@
 			return $this->db->fetchAll();
 		}
 
-		
-		
+		//BUSCA POR PELICULA
+		public function getGeneroByPeli($id){
+			$this->db->query("SELECT * FROM generosdepeliculas 
+				WHERE id_pelicula = $id");
+			return $this->db->fetchAll();
+		}
+
 	}
 
 	class ExcepcionGenero extends Exception {}

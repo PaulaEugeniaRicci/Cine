@@ -6,5 +6,6 @@ class Index extends View {
 
 	public $peliculas;
 	public $sucursales;
-	public $generos;
+	public $id_sucursal;
+	public $proyecciones;
 }

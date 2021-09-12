@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="../style/disenio.css ">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One">
-  	<title>Alta de empleados</title>
+    <script src="https://kit.fontawesome.com/187a5bbb1c.js" crossorigin="anonymous"></script>
+  	<title>Agregar nuevo empleado</title>
 </head>
 <body>
 
@@ -28,27 +29,56 @@
 					 </div>
 			</div>
 		</nav>
-		<!-- Barra con titulo de sección -->		
-			<div class= "titulo_seccion"><h2>ALTA DE EMPLEADOS</h2></div>
+		
+		<!-- menu de admin -->
+			<div class="navbar_dev">
+				<div class="dev_item_link">
+					<div class="cont_icon"><i class="icono fas fa-users"></i></div><a href="../controllers/listaEmpleados.php">Empleados</a>
+				</div>
+				<div class="dev_item_link">
+					<div class="cont_icon"><i class="icono fas fa-film"></i></div><a href="../controllers/listaPeliculas.php">Peliculas</a>
+				</div>
+				<div class="dev_item_link">
+					<div class="cont_icon"><i class="icono fas fa-film"></i></div><a href="../controllers/listaSalas.php">Salas</a>
+				</div>
+				<div class="dev_item_link">
+					<div class="cont_icon"><i class="icono far fa-calendar-alt"></i></div><a href="../controllers/listaProyecciones.php">Proyecciones</a>
+				</div>
+				<div class="dev_item_link">
+					<div class="cont_icon"><i class="icono fas fa-ticket-alt"></i></div><a href="../controllers/listaPrecios.php">Tarifas</a>
+				</div>
+				<div class="dev_item_link">
+					<div class="cont_icon"><i class="icono fas fa-film"></i></div><a href="../controllers/listaPrecios.php">Recaudaci&oacuten</a>
+				</div>
+				<div class="dev_item_link">
+					<div class="cont_icon"><i class="icono fas fa-film"></i></div><a href="../controllers/listaPrecios.php">Administraci&oacuten</a>
+				</div>
+			</div>
 
 		<!-- Formulario -->
   		<div class="container_form">
-			<p>Por favor ingrese los datos del empleado</p>
-			<form class="formulario" action="" method="POST">		
+			<div class="titulo_formulario"><p>NUEVO EMPLEADO</p></div>
+			<form class="formulario" action="" method="POST">
+				<div class="bloque_form_columns">		
+					<div class="form_column1">	
 						<label for="nombre">Nombre</label>
 						<input class="input_general" type="text" name="nombre" maxlength="20" id="nombre" required>
 						<label for="apellido">Apellido</label>
 						<input class="input_general" type="text" name="apellido" maxlength="20" id="apellido" required>
 						<label for="telefono">Teléfono</label>
 						<input class="input_general" type="text" name="telefono" maxlength="20" required>
+						
+					</div>
+					<div class="form_column2">
 						<label for="direccion">Dirección</label>
 						<input type="text" name="direccion" maxlength="20" id="direccion" required>
-						<label for="cuit">Cuit</label>
-						<input class="input_general" type="text" name="cuit" maxlength="20" id="cuit" required>
+						<label for="cuil">Cuil</label>
+						<input class="input_general" type="text" name="cuil" maxlength="20" id="cuil" required>
 						<label for="sucursal">Sucursal</label>
 							<?php
 								echo'
-									<select class="input_general" name="sucursal" id="sucursal">';
+									<select class="input_general" name="sucursal" id="sucursal">
+									<option value="" disabled selected></option>';
 									foreach ($this->sucursales as $s) {
 										echo '<option value="'.$s['id_sucursal'].'">
 										'.$s['descripcion'].'
@@ -56,34 +86,21 @@
 									}
 								echo'</select>'
 							?>
-						</td>
-						<label for="usuario">Usuario</label>
-						<input class="input_general" type="text" name="usuario" maxlength="20" id="usuario" required>
-						<label for="contrasenia">Contraseña</label>
-						<input class="input_general" type="password" name="contrasenia" maxlength="20" id="contrasenia" required>
-						
+							</div>
+				</div>
+				<div class="form_botones">				
 				
-				<input type="submit" name="setSubmit" value="Guardar" class="submit">
-				<a class="btn btn-primary volver" href="listaEmpleados.php" class="volver">Volver</a>
+				<input type="submit" name="setSubmit" value="Guardar" class="btn btn-primary submit">
+				<a class="btn btn-secondary volver" href="listaEmpleados.php" class="volver">Volver</a>
+				</div>
 			</form>
 		
 		</div>
 			
 		
-		<!-- Pie de pagina -->	
-	<footer><h1 class="navbar-brand">CINEMA</h1></footer>
+		
 	</div>
-	
-	
-	 <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
-
-
-
 </html>
 
 

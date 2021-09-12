@@ -1,31 +1,52 @@
+@font-face{
+	font-family: "Cinepolis";
+	src: url("../fonts/Cinepolis.otf");
+}
+
 body{
-	padding-top: 56px;
-	background-color: #333;
+	
+	background-color: #eaeaea;
 }
 
 /*//////BARRA DE NAVEGACION QUE SE VE ARRIBA//////*/
 /*Barra completa*/
 .navbar{
 	grid-area: navbar;
+	background: linear-gradient(to top right,#0b254a,#12407e);
+
 }
 
 /*Titulo*/
 .navbar-brand{
-	font-family: Rubik Mono One;
+	font-family: Cinepolis;
+
 }
 
 /*////PIE DE PAGINA DE TODAS LAS PANTALLAS/////*/
 footer{
 	grid-area: footer;
-	background-color: #333;
+		height: 130px;
+	display: flex;
+	flex-direction: row;
+		justify-content: space-between;
+	background: linear-gradient(to top right,#000 0,#0b254a);
 	color: #808080;
 	padding: 20px;
 }
 
+.footer_login{
+	
+}
+
+.creditos{
+
+}
+
+
 /*///////DISEÑO DE LA PAGINA PRINCIPAL DEL SITIO////////*/
 /*contenedor del sitio index*/
 .container_index{
-	background-color: black;
+background-color: white;
 	width: 100%;
 	max-width: 100%;
 	padding-left: 0;
@@ -33,11 +54,13 @@ footer{
 
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
-	grid-template-rows: repeat(4, auto);
+	grid-template-rows: repeat(5, auto);
 	grid-template-areas: "navbar"
 						 "slide"
 						 "cartelera"
-						 "footer"	;
+						 "prox"
+						 "footer"
+						 ;
 }
 
 /*Carrousel de anuncios (SLIDE)*/
@@ -48,25 +71,70 @@ footer{
 /*Contenedor de toda la seccion de cartelera*/
 .cartelera{
 	grid-area: cartelera;
-	width: 95%;
-	margin: 40px auto 40px auto;
+	width: 100%;
+	min-height: calc(100vh - 56px - 130px);
+	margin: 56px auto 20px auto;
+}
+
+
+.items_cartelera{
+	display: flex;
+	column-gap: 15px;
+	height: 60px;
+}
+
+.item_cartelera{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+
+}
+
+.cartelera_proximamente{
+	grid-area: prox;
+	width: 100%;
+	margin: 20px auto 40px auto;
+	background-color: #343a40;
 }
 
 /*Contenedor de titulo de cartelera y los selects*/
 .cabecera_cartelera{
 	width: 100%;
+	background-color: black;
 	margin-bottom: 20px;
+	padding: 10px 0 15px 0;
+	
 
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: center;
+	flex-wrap: wrap;
+	}
+
+.cabecera_proximo_estrenos{
+	width: 100%;
+
+	margin-bottom: 20px;
+	padding: 10px;
+	
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 	flex-wrap: wrap;	
 }
 
 /*Titulo de la cartelera*/
 .titulo_cartelera{
-	font-size: 32px;
+	font-size: 26px;
+	color: white;
+	font-family: Montserrat;
 }
+
+.label_cartelera{
+	color: white;
+}
+
 
 /*Formulario que contiene los selects de la cartelera (filtros)*/
 .formulario_select_sucursal{
@@ -79,20 +147,16 @@ footer{
 /*Selects del formulario de la cartelera (filtros)*/
 .formulario_select_sucursal select{
 	padding: 10px;
-	background-color: black;
-	border: 1px solid white;
-	color: white;
+	background-color: white;
+	color: black;
 	border-radius: 4px;
 }
 
-.items_cartelera{
-	display: flex;
-	column-gap: 15px;
-}
+
 
 .boton_verTodo{
 	width: 100px;
-	height: 100%;
+	height: 45px;
 	border: 0;
 	cursor: pointer;
 }
@@ -143,17 +207,162 @@ footer{
 
 /*Diseño de secciones de administradores*/
 .container_alternative{
+		padding-top: 56px;
 		width: 100%;
-		background-color: #d6d4d4;
+		height: 100vh;
+		background-color: #eaeaea;
 
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(4, auto);
-		grid-template-areas: "navbar navbar navbar navbar"
-							 "titulo titulo titulo titulo"
-							 ". formulario formulario ."
-							 "footer footer footer footer"	;
+		grid-template-columns: repeat(6, 1fr);
+		grid-template-rows: repeat(1, auto);
+		grid-template-areas: "herr formulario formulario formulario formulario formulario";
 }
+
+.navbar_dev{
+	grid-area: herr;
+	width: 240px;
+	background-color: #374f77;
+	border-right: 1px solid #253550;
+	box-shadow: 3px 0px 3px gray;
+}
+
+.titulo_formulario{
+	background-color: #2e4263;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 45px;
+	border-radius: 4px 4px 0 0;
+}
+
+.titulo_formulario p{
+	color: white;
+}
+
+.dev_item_link{
+	height: 44px;	
+	border-top: 1px solid #556b8e;
+	border-bottom: 1px solid #253550;
+	cursor: pointer;
+
+	display: flex;
+	align-items: center;
+	padding-left: 20px;
+}
+
+.dev_item_link:hover{
+	background-color: rgba(66,133,244,0.149);
+
+}
+
+.dev_item_link a{
+	width: 100%;
+	margin-left: 10px;
+	font: 14px sans-serif;
+	color: white;
+	text-decoration: none;
+	line-height: 40px;
+}
+
+.dev_item_link:hover .dev_item_link a{
+	color: blue;
+}
+
+
+.form_column1, .form_column2, .form_column3{
+	display: flex;
+	flex-direction: column;
+	width: 30%;
+}
+
+.form_botones{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	height: 38px;
+	margin: 40px 0 40px 0;
+	column-gap: 10px;
+}
+
+.cont_icon{
+	width: 35px;
+}
+
+.icono{
+	color: white;
+	margin-left: 5px;
+	font-size: medium;
+}
+
+.group_search{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	column-gap: 15px;
+	justify-content: center;
+	align-items: center;
+	border-left: 1px solid #bcbcbc;
+	border-right: 1px solid #bcbcbc;
+	padding: 15px 0 15px 0;
+}
+
+
+
+
+.form_search{
+	display: flex;
+	flex-direction: row;
+	column-gap: 15px;
+
+}
+
+table{
+		border: 1px solid #bcbcbc;
+		width: 100%;
+}
+
+th{
+	text-align: center;
+	font-size: 14px;
+	background-color: #cecece;
+}
+.celda{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+	font-size: 12px;
+	height:  74px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 10px 0 10px;
+    text-align: center;
+}
+
+.celda_sinopsis{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: center;
+	font-size: 12px;
+	height:  74px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 10px 0 10px;
+}
+
+.fila_tabla:nth-of-type(2n){
+	background-color: white;
+}
+
+.items_form_login{
+	width: 30%;
+}
+
 
 .container_alter_tablas{
 		width: 100%;
@@ -190,7 +399,7 @@ footer{
 /*Contenedor del formulario de las secciones de admin*/
 .container_form{
 	width: 100%;
-	padding: 50px;
+	padding: 10px 50px 50px 50px;
 	grid-area: formulario;
 
 	display: flex;
@@ -202,7 +411,15 @@ footer{
 .formulario{
 	display: flex;
 	flex-direction: column;
+		border: 1px solid #bcbcbc;
+		width: 100%;
 
+}
+
+.bloque_form_columns{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
 }
 
 /*Etiquetas de los campos*/
@@ -212,13 +429,11 @@ label{
 }
 
 .input_general{
-	width: 350px;
-	height: 40px;
+	width: 100%;
+	height: 36px;
+	padding: 6px 12px 6px 12px;
 }
 
-.input_check{
-
-}
 
 .group_checkbox{
 	display: flex;
@@ -233,61 +448,118 @@ label{
 
 /*Botón de submit en los formularios*/
 .submit{
-	width: 200px;
-	margin: 20px auto 0 auto;
+	width: 150px;
 	height: 38px;
 }
 
 /*Botón de volver en los formularios*/
 .volver{
-	width: 200px;
-	margin: 5px auto 0 auto;
+	width: 150px;
+	height: 38px;
 }
 
-/*Botones de modificar y eliminar en las tablas(correcion para los que se encuentran uno arriba de otro)*/
-.edit_btn{
-	width: 100%;
-	margin-bottom: 5px;
+
+
+.btn_eliminar{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 70px;
+	height: 20px;
+	background-color: #dc3545;
+	cursor: pointer;
+	font-size: 12px;
+	border: 0;
+	border-radius: 4px;
+	color: white;
+	align-self: center;
 }
 
+.btn_modificar{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 70px;
+	height: 20px;
+	background-color: #17a2b8;
+	cursor: pointer;
+	margin-bottom: 2px;
+	border: 0;
+	border-radius: 4px;
+	align-self: center;
+	
+}
+
+.btn_trailer{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 2px;
+	width: 70px;
+	height: 20px;
+	background-color: #28a745;
+	cursor: pointer;
+	border: 0;
+	border-radius: 4px;
+	align-self: center;
+	
+}
+
+.celda a{
+	text-decoration: none;
+	font-size: 12px;
+	color: white;
+}
 
 /*///////DISEÑO DE LA PAGINA CON LA INFORMACIÓN SOBRE LA PELICULA/////////*/
 .container_pelicula{
 	width: 100%;
 
-	background-color: white;
+	background-color:  #efefef;
 
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
-	grid-template-rows: repeat(4, auto);
-	grid-template-areas: "navbar "
-						"titulo"
+	grid-template-rows: repeat(3, auto);
+	grid-template-areas:"titulo"
 						 "pelicula"
 						 "footer";
 
 }
 
 .titulo_pelicula{
+	width: 100%;
+	grid-area: titulo;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	color: white;
-	font-family: sans-serif;
+	font-family: Montserrat;
+
 	font-size: 1.8rem;
-	font-weight: bold;
-	margin: auto;
+	
+	margin: 56px 0 0 0;
 	text-transform: uppercase;
+	background-color: black;
+	height: 90px;
+}
+.titulo_pelicula h3{
+	font-weight: bold;
 }
 
 
 .container_pelicula_detalles{
 	width: 88%;
 	background-color: #efefef;
-	margin: 30px auto 40px auto;
+	margin: auto;
 	padding: 20px 70px 20px 70px;
 	grid-area: pelicula;
 
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(3, auto);
-	grid-template-areas: "poster trailer trailer "
+	grid-template-areas: 
+						"poster trailer trailer "
 						 "sinopsis sinopsis detalles"
 						 "comprar . detalles";
 	grid-row-gap: 20px;
@@ -335,9 +607,10 @@ label{
 .container_pelicula_entradas{
 	width: 88%;
 	background-color: #efefef;
-	margin: 30px auto 40px auto;
+	margin: 0 auto 0 auto;
 	padding: 20px 70px 20px 70px;
 	grid-area: pelicula;
+		justify-items: center;
 
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
@@ -428,21 +701,41 @@ input[type="radio"]:checked + .lbl-radio{
 	align-self: flex-end;
 }
 
+.items_login{
+	width: 250px;
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	gap: 5px;
+}
 
+.input_login{
+
+	width: 100%;
+}
+
+.btn_login{
+	margin: 20px 0 40px 0;
+	align-self: center;
+}
 /*/////DISEÑO DE LA PAGINA DE PAGO////*/
 
 .container_pelicula_pago{
 	width: 88%;
 	background-color: #efefef;
-	margin: 30px auto 40px auto;
+	margin: 0 auto 0 auto;
 	padding: 20px 70px 20px 70px;
 	grid-area: pelicula;
 
+
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: repeat(2, 390px);
+	grid-template-rows: repeat(2, auto);
 	grid-template-areas: "poster centro centro centro  "
 						"detalles centro centro centro"
+						
 						 	 ;
 	grid-row-gap: 20px;
 	grid-column-gap: 40px;
@@ -456,6 +749,7 @@ input[type="radio"]:checked + .lbl-radio{
 	flex-direction: column;
 	align-items: center;
 	margin-top:10px; 
+
 }
 .centro{
 	grid-area: centro;
@@ -481,10 +775,29 @@ input[type="radio"]:checked + .lbl-radio{
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	width: 100%;
+	column-gap: 20px;
+
 }
 
 .btn_conf_pago{
-	margin: 30px auto 10px auto;
+
+	margin: 30px auto 5px auto;
+	font-weight: bold;
+	align-self: flex-end;
+}
+
+.notificacion{
+	min-height: calc(100vh - 56px - 122px);
+	display: flex;
+	justify-content: center;
+}
+
+.mensaje{
+	width: 80%;
+	padding: 150px;
+	text-align: center;
+	font-weight: bold;
 }
 
 

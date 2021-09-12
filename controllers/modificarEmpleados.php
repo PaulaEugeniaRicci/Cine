@@ -6,6 +6,7 @@
 	require'../models/Empleados.php';
 	require'../models/Sucursales.php';
 	require'../views/ModificarEmpleados.php';
+	require'../views/ExcepcionAdministracion.php';
 
 	/*
 	session_start();
@@ -14,28 +15,55 @@
 		exit;
 	}*/
 
-	if (isset($_POST['setSubmit']) && !empty($_POST['ID'])){
+	$emp = new Empleados();
+	$vError = new ExcepcionAdministracion;
+	
+	if (isset($_POST['setSubmit']) && !empty($_GET['ide'])){
 
-		$emp = new Empleados();
+		//VALIDACIONES DEL INPUT - Si evade el require de los campos
+		if (empty($_POST['nombre']))die("Debe ingresar el nombre del empleado.");
+		if (empty($_POST['apellido']))die("Debe ingresar el apellido del empleado.");
+		if (empty($_POST['telefono']))die("Debe ingresar un telefono.");
+		if (empty($_POST['direccion']))die("Debe ingresar direccion del empleado");
+		if (empty($_POST['cuil'])) die("Debe ingresar un CUIL valido");
+		
+		//VALIDACIONES DEL INPUT - Select
+		if (empty($_POST['sucursal'])){
+			$vError->mensaje = "Debe seleccionar la sucursal.";
+			$vError->enlace = 'modificarEmpleados.php';
+			$vError-> render();
+			exit();
+		}
+
 		try {
 			$emp->modificarEmpleados(
-				$_POST['ID'],
+				$_GET['ide'],
 				$_POST['nombre'],
 				$_POST['apellido'],
 				$_POST['telefono'],
 				$_POST['direccion'],
-				$_POST['cuit'],
-				$_POST['sucursal'],
-				$_POST['usuario'],
-				$_POST['contrasenia']
+				$_POST['cuil'],
+				$_POST['sucursal']
 			);
 			header('Location: listaEmpleados.php');
 		}
 		catch (ExcepcionEmpleado $e){ 
-			die($e->getMessage()); 
+			$vError->mensaje = $e->getMessage();
+			$vError->enlace = 'modificarEmpleados.php';
+			$vError-> render();
+			exit();
 		}
 	}
-	
+	try{
+		$empleado = $emp->getEmpleadoById($_GET['ide']);
+		}
+		catch (ExcepcionEmpleado $e){ 
+			$vError->mensaje = $e->getMessage();
+			$vError->enlace = 'listaEmpleados.php';
+			$vError-> render();
+			exit();
+		}
+
 	$s = new Sucursales;
 	try{
 		$sucursales = $s->getTodos();
@@ -45,5 +73,6 @@
 	}
 
 	$v = new ModificarEmpleados;
+	$v->empleados = $empleado;
 	$v->sucursales = $sucursales;
 	$v->render();

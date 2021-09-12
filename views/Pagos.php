@@ -6,10 +6,7 @@ class Pagos extends View {
 
 	public $pelicula;
 	public $sucursal;
-	public $sala;
-	public $asientos;
-	public $dia;
-	public $horario;
-	public $entradas;
-	public $importe;
+	public $monto;
+	public $cant_entradas;
+	
 }

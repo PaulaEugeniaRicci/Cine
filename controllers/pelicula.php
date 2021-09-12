@@ -12,25 +12,30 @@
 	require'../fw/fw.php';
 	require'../models/Peliculas.php';
 	require'../views/Pelicula.php';
+	require'../views/ExcepcionCliente.php';
+
+	$vError = new ExcepcionCliente;		
+	$v = new Pelicula;	
 
 	if(isset($_POST['id_pelicula'])){
-		
 
-
-		$pelis = new Peliculas;			// Un modelo
+		$pelis = new Peliculas;
+		$id_sucursal = ($_POST['id_sucursal']);			
+		$v->id_sucursal = $id_sucursal;
 
 		try{ 
 			$datos_peli = $pelis->getPelicula($_POST['id_pelicula']);
 		}
-		catch (ExcepcionPelicula $e){ 
-			die($e->getMessage()); 
-		}
+		catch (ExcepcionPelicula $ep){ 
+			$vError->mensaje = $ep->getMessage();
+			$vError->enlace = 'index.php';
+			$vError-> render();
+			exit();
+		}	
 	}
-
 	
-	$v = new Pelicula;		// Vista, se carga con lo obtenido de modelos
+		
 	$v->pelicula = $datos_peli ;
-
 	$v-> render();
 
 

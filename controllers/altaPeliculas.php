@@ -8,17 +8,14 @@
 	require'../models/Clasificaciones.php';
 	require'../models/Idiomas.php';
 	require'../views/AltaPeliculas.php';
+	require'../views/ExcepcionAdministracion.php';
 
-	/*
-	session_start();
-	if(!($_SESSION['login']==true)){
-		header("Location: login");
-		exit;
-	}
-	*/
 	if (isset($_POST['setSubmit'])){
 
-		//VALIDACIONES DEL INPUT
+		$peli = new Peliculas;
+		$vError = new ExcepcionAdministracion;
+
+		//VALIDACIONES DEL INPUT - Si evade el require de los campos
 		if (empty($_POST['titulo']))die("Debe ingresar el titulo de la pelicula.");
 		if (empty($_POST['genero']))die ("Debe ingresar al menos un genero.");
 		if (empty($_POST['director']))die("Debe ingresar el director de la pelicula.");
@@ -30,10 +27,57 @@
 		
 		$poster= addslashes(file_get_contents($_FILES['poster']['tmp_name'])); 
 		
-		
+		//VALIDACIONES DEL INPUT - Fecha de Estreno no puede ser mayor a un mes contando desde la fecha actual, ni menor al 19 de marzo de 1895, la primera pelicula de la historia, para ser bien exactos(?)
+		if (empty($_POST['fecha'])){
+			$vError->mensaje = "Debe ingresar la fecha de estreno.";
+			$vError->enlace = 'altaPeliculas.php';
+			$vError-> render();
+			exit();
+		}
+		else{
+			date_default_timezone_set('America/Argentina/Buenos_Aires'); 	
+			$fecha_estreno =  new DateTime ($_POST['fecha']);
+			
+			$fecha_a = '1895-03-19';
+			$fecha_antigua =  new DateTime($fecha_a);
 
-		$peli = new Peliculas;
-	
+			$fecha_futuro = new DateTime();
+			$fecha_futuro-> modify('+1 month');
+
+			if ($fecha_estreno < $fecha_antigua){
+				$vError->mensaje = "La fecha de estreno no es valida.";
+				$vError->enlace = 'altaPeliculas.php';
+				$vError-> render();
+				exit();
+			}
+			if ($fecha_estreno > $fecha_futuro) {
+				$vError->mensaje = "La fecha de estreno no es valida.";
+				$vError->enlace = 'altaPeliculas.php';
+				$vError-> render();
+				exit();
+			}
+		}
+
+		//VALIDACIONES DEL INPUT - Select
+		if (empty($_POST['clasificacion'])){
+			$vError->mensaje = "Debe seleccionar la clasificación.";
+			$vError->enlace = 'altaPeliculas.php';
+			$vError-> render();
+			exit();
+		}
+		if (empty($_POST['idioma'])){
+			$vError->mensaje = "Debe seleccionar el idioma original.";
+			$vError->enlace = 'altaPeliculas.php';
+			$vError-> render();
+			exit();
+		}
+		if (empty($_POST['subtitulado'])){
+			$vError->mensaje = "Debe seleccionar si la pelicula se encuentra subtitulada o doblada.";
+			$vError->enlace = 'altaPeliculas.php';
+			$vError-> render();
+			exit();
+		}
+
 		try {
 			$peli->cargarPeliculas( 
 				$_POST['titulo'],
@@ -48,11 +92,13 @@
 				$poster,
 				$_POST['trailer']
 			);
-			//header('Location: lista-peliculas'); CAMBIAR CUANDO SE HAGA EL HTACCESS
 			header('Location: listaPeliculas.php');
 		}
-		catch (ExcepcionPelicula $ep){ 
-			die($ep->getMessage());
+		catch (ExcepcionPelicula $ep){
+			$vError->mensaje = $ep->getMessage();
+			$vError->enlace = 'altaPeliculas.php';
+			$vError-> render();
+			exit(); 
 		}
 	}
 

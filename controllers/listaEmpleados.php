@@ -13,10 +13,24 @@
 	require'../models/Empleados.php';
 	require'../models/Sucursales.php';
 	require'../views/ListadoEmpleados.php';
+	require'../views/ExcepcionAdministracion.php';
 
 	$emp = new Empleados;			// Un modelo
 	$v = new ListadoEmpleados;		// Vista, se carga con lo obtenido de modelos
-			
+	$vError = new ExcepcionAdministracion;
+
+	//Borrar
+	if (!empty($_POST["id_baja"])){
+		try {
+			$emp->borrarEmpleados($_POST["id_baja"]);
+		}
+		catch (ExcepcionEmpleado $e){
+			$vError->mensaje = $e->getMessage();
+			$vError->enlace = 'listaEmpleados.php';
+			$vError-> render();
+			exit();
+		}		
+	}
 
 	// Si el usuario eligió filtrado
 	if (!empty($_POST["valor"])){
@@ -25,17 +39,23 @@
 			$v->empleados = $todos;
 		}		
 		catch (ExcepcionEmpleado $e){
-			die($e->getMessage());
+			$vError->mensaje = $e->getMessage();
+			$vError->enlace = 'listaEmpleados.php';
+			$vError-> render();
+			exit();
 		}
 	}
 	
-	else if (isset($_POST['setSubmit'])){
+	else if (!empty($_POST['sucursal'])){
 		try{ 
 			$todos = $emp->getEmpleadosSucursal($_POST["sucursal"]); 
 			$v->empleados = $todos;
 		}		
 		catch (ExcepcionEmpleado $e){
-			die($e->getMessage());
+			$vError->mensaje = $e->getMessage();
+			$vError->enlace = 'listaEmpleados.php';
+			$vError-> render();
+			exit();
 		}
 	}
 	// Si el usuario recién ingresa o no eligió nada, se muestran todos los empleados
@@ -45,7 +65,10 @@
 			$v->empleados = $todos;
 		}
 		catch (ExcepcionEmpleado $e){ 
-			die($e->getMessage()); 
+			$vError->mensaje = $e->getMessage();
+			$vError->enlace = 'listaEmpleados.php';
+			$vError-> render();
+			exit();
 		}
 
 	}

@@ -4,38 +4,39 @@
 
 	class Empleados extends Model {
 		
-		//BUSCAR POR APELLIDO/CUIT
+		//BUSCAR POR APELLIDO/CUIL
 		public function getEmpleadosFiltro($valor){
 			
 			$valor = trim($valor);
+			$valor = $this->db->escape($valor);
+			$valor = $this->db->escapeWildCards($valor);
+			/*	REEMPLAZO ESTO POR ESCAPE Y ESCAPEWILDCARDS 
 			$regex = "/[\^<,\"@\/\{\}\(\)\*\$%\?=>:\|;#_]+/i";
-			//El regular expression de arriba contiene los caracteres comodines
-			if (preg_match($regex, $valor)) throw new ExcepcionEmpleado("Error: El CUIT debe incluir solo numeros, y el apellido solo letras y espacios.");
+			El regular expression de arriba contiene los caracteres comodines
+			if (preg_match($regex, $valor)) throw new ExcepcionEmpleado("Error: El CUIL debe incluir solo numeros, y el apellido solo letras y espacios.");*/
 
-			//POR CUIT
+			//POR CUIL
 			if (ctype_digit($valor)){
 				
-				if (strlen($valor)> 15) throw new ExcepcionEmpleado("Error: el CUIT debe tener la cantidad correcta de digitos.");
+				if (strlen($valor)> 11) throw new ExcepcionEmpleado("Error: el CUIL debe tener la cantidad correcta de digitos.");
 
-				$this->db->query("SELECT e.id_empleado, e.nombre, e.apellido, e.cuit, e.telefono, e.direccion, s.descripcion
+				$this->db->query("SELECT e.id_empleado, e.nombre, e.apellido, e.cuil, e.telefono, e.direccion, s.descripcion
 								FROM empleados e
 								LEFT JOIN sucursales s ON e.id_sucursal = s.id_sucursal
-								WHERE cuit = $valor");
+								WHERE cuil = $valor");
 
-				if($this->db->numRows()<1) throw new ExcepcionEmpleado("Error: No se encontro un empleado con ese CUIT.");
-
+				if($this->db->numRows()<1) throw new ExcepcionEmpleado("Error: No se encontro un empleado con ese CUIL.");
 				return $this->db->fetchAll();
 			}
 			//POR APELLIDO	
 			else {
 				
-				$this->db->query("SELECT e.id_empleado, e.nombre, e.apellido, e.cuit, e.telefono, e.direccion, s.descripcion
+				$this->db->query("SELECT e.id_empleado, e.nombre, e.apellido, e.cuil, e.telefono, e.direccion, s.descripcion
 								FROM empleados e
 								LEFT JOIN sucursales s ON e.id_sucursal = s.id_sucursal
 								WHERE apellido like '$valor'");
 
 				if($this->db->numRows()<1) throw new ExcepcionEmpleado("Error: No se encontro un empleado con ese apellido.");
-
 				return $this->db->fetchAll();
 			}
 
@@ -43,20 +44,35 @@
 
 		//BUSCAR POR SUCURSAL
 		public function getEmpleadosSucursal ($valor){
+			if(!ctype_digit($valor)) throw new ExcepcionEmpleado("Error en el ID de la sucursal.");
 
-			$this->db->query("SELECT e.id_empleado, e.nombre, e.apellido, e.cuit, e.telefono, e.direccion, s.descripcion
+			$this->db->query("SELECT e.id_empleado, e.nombre, e.apellido, e.cuil, e.telefono, e.direccion, s.descripcion
 								FROM empleados e
 								LEFT JOIN sucursales s ON e.id_sucursal = s.id_sucursal
 								WHERE e.id_sucursal = $valor");
 
 				if($this->db->numRows()<1) throw new ExcepcionEmpleado("Error: No se encontraron empleados correspondientes a esa sucursal.");
-
 				return $this->db->fetchAll();
 		}
 
+
+		//BUSCAR POR ID
+		public function getEmpleadoById($id){
+
+			//Validacion
+			if(!ctype_digit($id)) throw new ExcepcionEmpleado("Error en el ID del empleado.");
+			if($id < 1) throw new ExcepcionEmpleado("Error en el ID del empleado.");
+			//
+			$this->db->query("SELECT e.id_empleado, e.nombre, e.apellido, e.cuil, e.telefono, e.direccion, s.descripcion, e.id_sucursal
+								FROM empleados e
+								LEFT JOIN sucursales s ON e.id_sucursal = s.id_sucursal
+								WHERE id_empleado = $id");
+			return $this->db->fetchAll();
+		}
+
 		//FLAG EXISTE EMPLEADO
-		private function getEmpleadoID($id){
-			$this->db->query("SELECT e.id_empleado, e.nombre, e.apellido, e.cuit, e.telefono, e.direccion, s.descripcion
+		private function flagEmpleadoID($id){
+			$this->db->query("SELECT e.id_empleado, e.nombre, e.apellido, e.cuil, e.telefono, e.direccion, s.descripcion
 								FROM empleados e
 								LEFT JOIN sucursales s ON e.id_sucursal = s.id_sucursal
 								WHERE id_empleado = $id LIMIT 1");
@@ -69,115 +85,96 @@
 
 		//RETORNAR TODAS LAS FILAS
 		public function getTodos(){
-			$this->db->query("SELECT e.id_empleado, e.nombre, e.apellido, e.cuit, e.telefono, e.direccion, s.descripcion
+			$this->db->query("SELECT e.id_empleado, e.nombre, e.apellido, e.cuil, e.telefono, e.direccion, s.descripcion
 								FROM empleados e
 								LEFT JOIN sucursales s ON e.id_sucursal = s.id_sucursal");
-
 			return $this->db->fetchAll();
 		}
 
 		
 		//ALTAS
-		public function cargarEmpleados($nombre, $apellido, $telefono, $direccion, $cuit, $sucursal, $usuario, $contrasenia){
+		public function cargarEmpleados($nombre, $apellido, $telefono, $direccion, $cuil, $sucursal){
 
 			//VALIDACIONES
 			$nombre = trim($nombre);
 			$apellido = trim($apellido);
 			$telefono = trim ($telefono);
 			$direccion = trim($direccion);
-			$cuit = trim ($cuit);
+			$cuil = trim ($cuil);
 
-			$contrasenia = password_hash($contrasenia, PASSWORD_DEFAULT);
-
-			$regex = "/[\^<,\"@\/\{\}\(\)\*\$%\?=>:\|;#]+/i";
-			if (preg_match($regex, $nombre)) throw new ExcepcionEmpleado("Error: se ingreso un nombre no valido.");
-			if (preg_match($regex, $apellido)) throw new ExcepcionEmpleado("Error: se ingreso un apellido no valido.");
+			$nombre = $this->db->escape($nombre);
+			$nombre = $this->db->escapeWildCards($nombre);
+			$apellido = $this->db->escape($apellido);
+			$apellido = $this->db->escapeWildCards($apellido);
+			$direccion = $this->db->escape($direccion);
+			$direccion = $this->db->escapeWildCards($direccion);
 
 			if(!ctype_digit($telefono)) throw new ExcepcionEmpleado("Error: el telefono debe ser numerico.");
-
-			if (preg_match($regex, $direccion)) throw new ExcepcionEmpleado("Error: la direccion contiene caracteres no permitidos.");
-
-			if(!ctype_digit($cuit)) throw new ExcepcionEmpleado("Error: el CUIT debe ser numerico.");
-
+			if(!ctype_digit($cuil)) throw new ExcepcionEmpleado("Error: el CUIL debe ser numerico.");
 			if(!ctype_digit($sucursal)) throw new ExcepcionEmpleado("Error en la sucursal.");
 
 			//Evitar cargar el mismo empleado de nuevo
 			$this->db->query("SELECT *
 								FROM empleados e
 								LEFT JOIN sucursales s ON e.id_empleado = s.id_sucursal
-								WHERE cuit = $cuit");
-			if($this->db->numRows()>=1) throw new ExcepcionEmpleado("Error: ya existe un empleado con ese CUIT.");
+								WHERE cuil = $cuil");
+			if($this->db->numRows()>=1) throw new ExcepcionEmpleado("Error: ya existe un empleado con ese CUIL.");
 			
 			//INSERT
-			$this->db->query("INSERT INTO empleados (nombre, apellido, telefono, direccion, cuit, id_sucursal, usuario, contrasenia) VALUES ('$nombre', '$apellido', $telefono, '$direccion', $cuit, $sucursal, '$usuario', '$contrasenia'); ");
+			$this->db->query("INSERT INTO empleados (nombre, apellido, telefono, direccion, cuil, id_sucursal) VALUES ('$nombre', '$apellido', $telefono, '$direccion', $cuil, $sucursal); ");
 		}
 
-		
-		//MODIFICACIONES
-		public function modificarEmpleados($id, $nombre, $apellido, $telefono, $direccion, $cuit, $sucursal, $usuario, $contrasenia){
+		//FUNCIONES PARA VALIDAR MODIFICACION
+		private function getIdEmpleado($cuil){
+		$this->db->query("SELECT id_empleado FROM empleados WHERE cuil = $cuil");
+			return $this->db->fetchAll();		
+		}
 
-			//VALIDACIONES PRIMERA PARTE
+		private function verificarCuil($id, $cuil){
+			$aux = $this->getIdEmpleado($cuil);
+			$flag = 0;
+			foreach ($aux as $key => $value) {
+				var_dump($value);
+				if ($value['id_empleado'] != $id){
+					throw new ExcepcionEmpleado("Error: ya existe un empleado con ese CUIL.");
+					$flag = 1;
+				}		
+			}
+			return $flag;
+		}
+
+		//MODIFICACIONES
+		public function modificarEmpleados($id, $nombre, $apellido, $telefono, $direccion, $cuil, $sucursal){
+
+			//VALIDACIONES parte 1 - Campos
+			$nombre = trim($nombre);
+			$apellido = trim($apellido);
+			$telefono = trim ($telefono);
+			$direccion = trim($direccion);
+			$cuil = trim ($cuil);
+
+			$nombre = $this->db->escape($nombre);
+			$nombre = $this->db->escapeWildCards($nombre);
+			$apellido = $this->db->escape($apellido);
+			$apellido = $this->db->escapeWildCards($apellido);
+			$direccion = $this->db->escape($direccion);
+			$direccion = $this->db->escapeWildCards($direccion);
+
+			if(!ctype_digit($telefono)) throw new ExcepcionEmpleado("Error: el telefono debe ser numerico.");
+			if(!ctype_digit($cuil)) throw new ExcepcionEmpleado("Error: el CUIL debe ser numerico.");
+			if(!ctype_digit($sucursal)) throw new ExcepcionEmpleado("Error en la sucursal.");
+
+			//VALIDACIONES parte 2 - Id
 			if(!ctype_digit($id)) throw new ExcepcionEmpleado("Error en el ID del empleado.");
 			if($id < 1) throw new ExcepcionEmpleado("Error en el ID del empleado.");
-			if(!($this->getEmpleadoID($id))) throw new ExcepcionEmpleado("Error: no existe el empleado que desea modificar.");
+			if(!($this->flagEmpleadoID($id))) throw new ExcepcionEmpleado("Error: no existe el empleado que desea modificar.");
 
-			$regex = "/[\^<,\"@\/\{\}\(\)\*\$%\?=>:\|;#]+/i";
-			
-
-			//SET DATOS y MAS VALIDACIONES
-			$consulta = "UPDATE empleados set ";
-			$flag=0;
-			if (!empty($nombre)){
-				if (preg_match($regex, $nombre)) throw new ExcepcionEmpleado("Error: se ingreso un nombre no valido.");
-				$nombre = trim($nombre);
-				$consulta.="nombre='".$nombre."'";
-				$flag=1;
-			}
-			if (!empty($apellido)){
-				if (preg_match($regex, $apellido)) throw new ExcepcionEmpleado("Error: se ingreso un apellido no valido.");
-				$apellido = trim($apellido);
-				if($flag==1) $consulta.=",apellido='".$apellido."'";
-				else
-				$consulta.="apellido='".$apellido."'";
-				$flag=1;
-			}
-			if (!empty($telefono)){
-				if(!ctype_digit($telefono)) throw new ExcepcionEmpleado("Error: el telefono debe ser numerico.");
-				$telefono = trim ($telefono);
-				if($flag==1) $consulta.=",telefono=".$telefono;
-				else
-				$consulta.=",telefono=".$telefono;
-				$flag=1;
-			}
-			if (!empty($direccion)){
-				if (preg_match($regex, $direccion)) throw new ExcepcionEmpleado("Error: la direccion contiene caracteres no permitidos.");
-				$direccion = trim($direccion);
-				if($flag==1) $consulta.=",direccion='".$direccion."'";
-				else
-				$consulta.="direccion='".$direccion."'";
-				$flag=1;			
-			}
-			if (!empty($cuit)){
-				if(!ctype_digit($cuit)) throw new ExcepcionEmpleado("Error: el CUIT debe ser numerico.");
-				$cuit = trim ($cuit);
-				if($flag==1) $consulta.=",cuit= ".$cuit;
-				else
-				$consulta.="cuit= ".$cuit;
-				$flag=1;
-			}
-			if (!empty($sucursal)){
-				if(!ctype_digit($sucursal)) throw new ExcepcionEmpleado("Error en la sucursal.");
-				if($flag==1) $consulta.=",id_sucursal= ".$sucursal;
-				else
-				$consulta.="id_sucursal= ".$sucursal;
-				$flag=1;
-			}
-
-			$consulta.=" WHERE id_empleado= ".$id;
-			var_dump($consulta);
-			$this->db->query($consulta);
-		}
-
+			//UPDATE y validacion final
+			if ($this->verificarCuil($id, $cuil) == 0){
+				$this->db->query("UPDATE empleados SET nombre= '$nombre',  apellido = '$apellido', telefono = $telefono, direccion= '$direccion', cuil = $cuil, id_sucursal= $sucursal
+					WHERE id_empleado = $id");		
+			}					
+		}	
 		
 		//BAJAS
 		public function borrarEmpleados($id){
@@ -186,12 +183,10 @@
 			if(!ctype_digit($id)) throw new ExcepcionEmpleado("Error en el ID del empleado.");
 			if($id < 1) throw new ExcepcionEmpleado("Error en el ID del empleado.");
 			
-			if(!($this->getEmpleadoID($id))) throw new ExcepcionEmpleado("Error: no existe el empleado que desea eliminar o ya ha sido eliminado.");
+			if(!($this->flagEmpleadoID($id))) throw new ExcepcionEmpleado("Error: no existe el empleado que desea eliminar o ya ha sido eliminado.");
 			
 			$this->db->query("DELETE from empleados WHERE id_empleado = $id");
-		}
-		
-		
+		}	
 	}
 
 	class ExcepcionEmpleado extends Exception {}

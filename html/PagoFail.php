@@ -29,28 +29,22 @@
 				</div>
 			</nav>
 	<!-- detalles pelicula -->
-					<?php foreach ($this->pelicula as $peli){ ?>
-					<div class="titulo_seccion"> <h3 class="titulo_pelicula">Entradas para: <?= $peli['titulo'] ?></h3></div>
-					<div class="container_pelicula_pago">	
-						<div class="poster"><img src=" data:image;base64, <?= base64_encode($peli['poster']) ?>" ></div>
-						
-						<div class="detalles">
-				  			<p><b>Genero:</b> <?= $peli['genero'] ?> </p>
-				  			<p><b>Duración:</b> <?= $peli['duracion'] ?> Minutos </p>
-				  			<p><b>Idioma Original:</b> <?= $peli['descripcion_idioma'] ?> </p>
-				  			<p><b>Subtitulado:</b> <?= $peli['subtitulado'] ?> </p>
-			  			</div>
-			  			<?php } ?>
-			  				<!-- detalle de compra -->
+					
+			  				<div class="notificacion">
+				  			<div class="mensaje"><p>Su tarjeta ha sido rechazada.</p><a class="btn btn-primary volver" href="index.php" class="volver">Volver</a></div>
 
-			  			<div class="centro">
-				  			<p>Hubo un problema con su tarjeta.</p>
 						</div>
-					</div>
+		</div>
 
 				
  	<!-- Pie de pagina-->
-			<footer><h1 class="navbar-brand">CINEMA</h1></footer>
+			<footer><div class="creditos">
+		<h5>CINEMA</h5>
+		
+		</div>
+		<div class="footer_login">
+			<a href="../controllers/listaPeliculas.php"><img src="../img/login.png" title="Acceso de personal"></a>
+		</div></footer>
 		</div>
 		<script>
 			document.getElementById("form_pago").onsubmit = function(){

@@ -6,7 +6,7 @@
 	require'../models/Empleados.php';
 	require'../models/Sucursales.php';
 	require'../views/AltaEmpleados.php';
-
+	require'../views/ExcepcionAdministracion.php';
 	/*
 	session_start();
 	if(!($_SESSION['login']==true)){
@@ -16,17 +16,24 @@
 	*/
 	if (isset($_POST['setSubmit'])){
 
-		//VALIDACIONES DEL INPUT
+		$emp = new Empleados;
+		$vError = new ExcepcionAdministracion;
+
+		//VALIDACIONES DEL INPUT - Si evade el require de los campos
 		if (empty($_POST['nombre']))die("Debe ingresar el nombre del empleado.");
 		if (empty($_POST['apellido']))die("Debe ingresar el apellido del empleado.");
 		if (empty($_POST['telefono']))die("Debe ingresar un telefono.");
 		if (empty($_POST['direccion']))die("Debe ingresar direccion del empleado");
-		if (empty($_POST['cuit'])) die("Debe ingresar un CUIT valido");
-		if (empty($_POST['usuario'])) die("Debe ingresar un nombre de usuario");
-		if (empty($_POST['contrasenia'])) die("Debe ingresar una contrasenia para el usuario");
-
+		if (empty($_POST['cuil'])) die("Debe ingresar un CUIL valido");
 		
-		$emp = new Empleados;
+		//VALIDACIONES DEL INPUT - Select
+		if (empty($_POST['sucursal'])){
+			$vError->mensaje = "Debe ingresar la sucursal.";
+			$vError->enlace = 'altaEmpleados.php';
+			$vError-> render();
+			exit();
+		}
+		
 
 		try {
 			$emp->cargarEmpleados(
@@ -34,16 +41,16 @@
 				$_POST['apellido'],
 				$_POST['telefono'],
 				$_POST['direccion'],
-				$_POST['cuit'],
-				$_POST['sucursal'],
-				$_POST['usuario'],
-				$_POST['contrasenia']
+				$_POST['cuil'],
+				$_POST['sucursal']
 			);
-			//header('Location: lista-empleados'); CAMBIAR CUANDO SE HAGA EL HTACCESS
-			header('Location: altaEmpleados.php');
+			header('Location: listaEmpleados.php');
 		}
 		catch (ExcepcionEmpleado $e){ 
-			die($e->getMessage());
+			$vError->mensaje = $e->getMessage();
+			$vError->enlace = 'altaEmpleados.php';
+			$vError-> render();
+			exit();
 		}
 	}
 
