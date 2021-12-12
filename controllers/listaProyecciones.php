@@ -9,12 +9,11 @@
 	require'../views/ListadoProyecciones.php';
 	require'../views/ExcepcionAdministracion.php';
 
-	/*
 	session_start();
 	if(!($_SESSION['login']==true)){
 		header("Location: login.php");
 		exit;
-	}*/
+	}
 
 	$pp = new Proyecciones;
 	$p = new Peliculas;

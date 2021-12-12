@@ -8,6 +8,12 @@
 	require'../views/ListadoSalas.php';
 	require'../views/ExcepcionAdministracion.php';
 
+	session_start();
+	if(!($_SESSION['login']==true)){
+		header("Location: login.php");
+		exit;
+	}
+
 	$sala = new Salas;			
 	$v = new ListadoSalas;		
 	$vError = new ExcepcionAdministracion;

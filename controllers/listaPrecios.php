@@ -7,12 +7,11 @@
 	require'../views/ListadoPrecios.php';
 	require'../views/ExcepcionAdministracion.php';
 
-	/*
 	session_start();
 	if(!($_SESSION['login']==true)){
 		header("Location: login.php");
 		exit;
-	}*/
+	}
 
 	$p = new Precios();
 	$vError = new ExcepcionAdministracion;

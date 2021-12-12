@@ -1,19 +1,17 @@
 <?php
 
-// ../controllers/listaEmpleados.php
-	/*
-	session_start();
-	if(!($_SESSION['login']==true)){
-		header("Location: login");
-		exit;
-	}
-	*/
-
+	// ../controllers/listaEmpleados.php
 	require'../fw/fw.php';
 	require'../models/Empleados.php';
 	require'../models/Sucursales.php';
 	require'../views/ListadoEmpleados.php';
 	require'../views/ExcepcionAdministracion.php';
+
+	session_start();
+	if(!($_SESSION['login']==true)){
+		header("Location: login.php");
+		exit;
+	}
 
 	$emp = new Empleados;			// Un modelo
 	$v = new ListadoEmpleados;		// Vista, se carga con lo obtenido de modelos

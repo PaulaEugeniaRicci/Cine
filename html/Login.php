@@ -1,66 +1,52 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	 <!-- Bootstrap CSS -->
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="../style/disenio.css ">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One">
-  	<title>Acceso de personal</title>
-</head>
-<body>
+  <!DOCTYPE html>
+  <html>
+  <head>
 
-		<div class="container_alternative">
-	<!-- Barra de navegación principal -->
-		  	<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #000000;">
-			  	<div class="container-fluid">
-					  <a class="navbar-brand" href="../controllers/index.php">CINEMA</a>
-					  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					    <span class="navbar-toggler-icon"></span>
-					  </button>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
-					 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav mr-auto">
-							<li class="nav-item">      	
-							</li>
-						 </ul>
-					 </div>
-				</div>
-			</nav>
-	<!-- menu de admin -->
-			<div class="navbar_dev"></div>
-	<!-- formulario -->
-			<div class="container_form">
-	  			<div class="titulo_formulario"><p>ACCESO DE PERSONAL</p></div>
-				<form class="formulario">
-					<div class="items_login">
-					
-							<label for="usuario">Usuario</label>
-							<input class="input_login" type="text" name="usuario" id="usuario">
-						
-							<label for="contrasenia">Contraseña</label>
-							<input class="input_login" type="password" name="password" id="contrasenia">
-						
-					<input type="submit" name="" value="Acceder" class="submit btn_login">
-					</div>
-				</form>
-			</div>
-			
+  
 
-		</div>
-
-	
-	 <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-</body>
-
-
-
-</html>
-
+  
+  </head>
+  <!------ Include the above in your HEAD tag ---------->
+  <body background="../images/mascotas.jpg" bgproperties="fixed">
+    <form action="login.php" method="post"> 
+      <div class="container">
+        <div class="container">    
+          <div id="loginbox" class="mainbox col-md-5 col-md-offset-4 col-sm-7 col-sm-offset-3">                    
+            <div class="panel panel-primary" >
+              <div class="panel-heading">
+                <div class="panel-title text-center"><i class="fa fa-sign-in" aria-hidden="true"></i>Login</div>   
+              </div>     
+              <div id="cuerpo_panel" class="panel-body" >             
+                <?php if($this->error)
+                {
+                  ?>
+                <div class="alert-danger form-group"><center>ERROR: Inicio de sesión incorrecto. Verifique su e-mail y contraseña.</center></div>
+                  <?php
+                }
+                ?>
+                <form id="loginform" class="form-horizontal" role="form">                                        
+                  <div id="grupo1" class="input-group col-sm-offset-3 col-sm-7">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input  type="text" class="form-control" name="email" value="" placeholder="Ingresar Mail">
+                  </div>
+                  <div id="grupo2" class="input-group col-sm-offset-3 col-sm-7">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input  type="password" class="form-control" name="password" placeholder="Ingresar Contraseña">
+                  </div>
+                  <div align="center">
+                    <button type="submit" class="btn btn-info">Ingresar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </body>
 
 

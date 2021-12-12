@@ -1,13 +1,12 @@
 <?php
 
-// ../controllers/listaPeliculas.php
-	/*
+	// ../controllers/listaPeliculas.php
+
 	session_start();
 	if(!($_SESSION['login']==true)){
-		header("Location: login");
+		header("Location: login.php");
 		exit;
 	}
-	*/
 
 	require'../fw/fw.php';
 	require'../models/Peliculas.php';

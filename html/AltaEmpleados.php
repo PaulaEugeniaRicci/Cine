@@ -53,6 +53,9 @@
 				<div class="dev_item_link">
 					<div class="cont_icon"><i class="icono fas fa-film"></i></div><a href="../controllers/listaPrecios.php">Administraci&oacuten</a>
 				</div>
+				<div class="dev_item_link">
+					<div class="cont_icon"><i class="icono fas fa-film"></i></div><a href="../controllers/logout.php">LOGOUT - podes ponerlo donde consideres</a>
+				</div>
 			</div>
 
 		<!-- Formulario -->

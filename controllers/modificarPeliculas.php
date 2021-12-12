@@ -10,12 +10,11 @@
 	require'../views/ModificarPeliculas.php';
 	require'../views/ExcepcionAdministracion.php';
 
-	/*
 	session_start();
 	if(!($_SESSION['login']==true)){
 		header("Location: login.php");
 		exit;
-	}*/
+	}
 
 	$peli = new Peliculas;
 	$g = new Generos;

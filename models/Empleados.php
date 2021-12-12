@@ -100,7 +100,7 @@
 			$apellido = trim($apellido);
 			$telefono = trim ($telefono);
 			$direccion = trim($direccion);
-			$cuil = trim ($cuil);
+			//$cuil = trim ($cuil);
 
 			$nombre = $this->db->escape($nombre);
 			$nombre = $this->db->escapeWildCards($nombre);

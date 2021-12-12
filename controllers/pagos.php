@@ -1,26 +1,19 @@
 <?php
 
-// ../controllers/pagos.php
-	/*
-	session_start();
-	if(!($_SESSION['login']==true)){
-		header("Location: login");
-		exit;
-	}
-	*/
+	// ../controllers/pagos.php
 
 	require'../fw/fw.php';
+	require'../models/Pagos.php';
 	require'../models/Proyecciones.php';
 	require'../models/Sucursales.php';
-	require'../views/Pagos.php';
-	//vistas de errores/notificaciones... 
+	require'../views/VistaPagos.php';
 	require'../views/PagoOk.php';
 	require'../views/PagoFail.php';
 	require'../views/ExcepcionCliente.php';
 
 	$proy = new Proyecciones;
 	$suc = new Sucursales;
-	$v = new Pagos;
+	$v = new VistaPagos;
 	$vError = new ExcepcionCliente;	
 
 	//Cambie a proyeccion, no deberia ir pelicula
@@ -46,54 +39,80 @@
 			exit();
 		}
 		$v->cant_entradas = $_POST['cant_entradas'];
-		//$v->monto = $_POST['monto'];
 		if (!empty($_POST['monto_total'])){
-			//var_dump("hola!!");
-			var_dump($_POST['monto_total']);
+			//var_dump($_POST['monto_total']);
 			$v->monto = $_POST['monto_total'];
 		}
 		
 	}
 
 
-	/*Metodos de marco p/validar tarjeta
+	//Metodos de marco p/validar tarjeta
 	if(isset($_POST['nro_tarjeta'])){
-		$peli = $pelis->getPelicula($_POST['id_pelicula']); 
-				
-
+		
+		//VALIDACIONES DEL INPUT - Si evade el require de los campos
+		if (empty($_POST['nombre']))die("Debe ingresar el nombre del cliente.");
+		if (empty($_POST['apellido']))die("Debe ingresar el apellido del cliente.");
+		if (empty($_POST['telefono']))die("Debe ingresar un telefono.");
+		if (empty($_POST['email']))die("Debe ingresar email del cliente.");
+		if (empty($_POST['dni'])) die("Debe ingresar un DNI valido.");
+		
 		$nro_tarjeta = $_POST['nro_tarjeta'];
 		$digito = substr($nro_tarjeta, 0, 1);
 		$seguridad = strlen($_POST['seguridad']);
-		$metodo = $_POST['metodo'];
 
-		if(strlen($nro_tarjeta)==16){
-			$v = new PagoFail; $v->pelicula = $peli;
+		$pagos = new Pagos();
 
-			$nombre= $_POST['nombre'];
-			$apellido= $_POST['apellido'];
-			$dni= $_POST['dni'];
-			//$proyeccion = $_POST['proyeccion'];
-			//$sala= $_POST['sala'];
-			$fecha = $_POST['fecha'];
-			$horario= $_POST['horario'];
-			//$entradas = $_POST['entradas'];
-			//$pago = $_POST['pago'];
-
-			if($metodo == 1 && $digito == 4 && $seguridad == 3){
-				//$pagos = new Pagos();
-				//$pagos->agregarPago();
-					//aqui quizas una funcion que retorne el comprobante
-				$v = new PagoOk;
-				$v->pelicula = $peli;
-			}
-
-			if($metodo == 2 && $digito == 5 && $seguridad == 3){
-				$v = new PagoOk;
-				$v->pelicula = $peli;
-			}
+		try{
+			$pagos->verificarPago(
+				$nro_tarjeta,
+				$digito,
+				$seguridad,
+				$_POST['metodo'],
+				$_POST['caducidad']
+			);
 		}
-	}*/
+		catch (ExcepcionPago $e){ 
+			$vError->mensaje = $e->getMessage();
+			$vError->enlace = 'index.php';
+			$vError-> render();
+			exit(); 
+		}
 
+		
+		try{
+			$pagos-> cargarClientes(
+				$_POST['dni'],
+				$_POST['nombre'],
+				$_POST['apellido'],
+				$_POST['telefono'],
+				$_POST['email']
+			);
+		}
+		catch (ExcepcionPago $e){ 
+			$vError->mensaje = $e->getMessage();
+			$vError->enlace = 'index.php';
+			$vError-> render();
+			exit(); 
+		}
+		try {
+			$pagos->cargarPagos(
+				$_POST['metodo'],
+				$nro_tarjeta,
+				$_POST['monto_total'],
+				$_POST['dni'],
+				$_POST['id_proy'],
+				$_POST['cant_entradas']
+			);
+			$v = new PagoOk;
+		}
+		catch (ExcepcionPago $e){ 
+			$vError->mensaje = $e->getMessage();
+			$vError->enlace = 'index.php';
+			$vError-> render();
+			exit(); 
+		}
+	}
 
 	$v-> render();
 

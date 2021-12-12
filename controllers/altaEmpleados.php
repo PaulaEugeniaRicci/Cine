@@ -7,13 +7,13 @@
 	require'../models/Sucursales.php';
 	require'../views/AltaEmpleados.php';
 	require'../views/ExcepcionAdministracion.php';
-	/*
+	
 	session_start();
 	if(!($_SESSION['login']==true)){
-		header("Location: login");
+		header("Location: login.php");
 		exit;
 	}
-	*/
+	
 	if (isset($_POST['setSubmit'])){
 
 		$emp = new Empleados;

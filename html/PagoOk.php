@@ -31,7 +31,11 @@
 	<!-- detalles pelicula -->			
 
 			  			<div class="notificacion">
-				  			<div class="mensaje"><p>¡Se ha realizado la compra con exito!</p><a class="btn btn-primary volver" href="index.php" class="volver">Volver</a></div>
+				  			<div class="mensaje"><p>Gracias por su compra!</p><a class="btn btn-primary volver" href="index.php" class="volver">Volver</a></div>
+				  			<table>
+				  				<thead>Coso</thead>
+				  				<td>Pone aca los datos de la compra</td>
+				  			</table>
 
 						</div>
 		</div>
@@ -47,52 +51,7 @@
 		</div>
 	</footer>
 		</div>
-		<script>
-			document.getElementById("form_pago").onsubmit = function(){
-				var metodo = document.getElementById('metodo').value;
-				var nro_tarjeta = document.getElementById('nro_tarjeta').value;
-				var cant_digitos = document.getElementById('nro_tarjeta').value.length;
-				var digito = nro_tarjeta.substr(0,1);
 
-				var seguridad = document.getElementById('seguridad').value;
-				var cant_digitos_seguridad = document.getElementById('seguridad').value.length;
-				
-
-				if(cant_digitos == 16){
-					if(metodo == 1 ){
-						if(digito == 4 ){
-							if(cant_digitos_seguridad == 3){
-								return true;
-							}else{
-								alert("El código de seguridad no es valido");
-								return false
-							}
-						}else{
-							alert("La clave de la tarjeta Visa ingresada no es valida");
-							return false;
-						}
-
-					}
-
-					if(metodo == 2){
-						if(digito == 5){
-							if(cant_digitos_seguridad == 3){
-								return true;
-							}else{
-								alert("El código de seguridad no es valido");
-								return false
-							}
-						}else{
-							alert("La clave de la tarjeta Mastercard ingresada no es valida");
-							return false;
-						}
-					}
-
-					return false;
-				}
-				return false;
-		}
-		</script>
 	
 	 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -75,7 +75,7 @@
 			<div class="titulo_formulario"><p>VALORES DE ENTRADAS EN <?=$date?></p></div>
 			<div class="group_search">
 				
-				<a class="btn btn-primary" href="altaPrecios.php" class="">Nueva tarifa</a>
+				
 			</div>
 					<table>
 						<tr>
@@ -105,7 +105,6 @@
 								<td><a href= modificarPrecios.php?idp='.$p['id_precio'].' class="btn_modificar">Modificar</a>'
 							?>
 
-								<button name="eliminar" class="btn_eliminar" id="<?=$p['id_precio']?>" >Eliminar</button> </td>
 									
 							</tr>		
 						<?php } ?>
@@ -155,35 +154,5 @@
 		    	//alert( "complete" );
 			});  
 	    <?php } ?>
-
-   	//Eliminar con Ajax
-	$('button[name="eliminar"]').click(function(event){
-    	var id_enviar = $(this).attr('id');
-    	var opcion = confirm("¿Esta seguro que desea eliminar la tarifa de " +id_enviar+ "?");
-		if (opcion == true){
-			var foo = $(event.target).closest("tr");
-			foo.remove();
-
-	    	$.ajax(
-			{
-			  url : 'listaPrecios.php',
-			  type: "POST",
-			  dataType: 'json',
-			  data : {id_baja: id_enviar}
-			})
-			.done(function(data) {
-		    	alert("todo OK");
-		    	alert ("La tarifa correspondiente '" + id_enviar + "' ha sido eliminada.");
-			})
-			.fail(function(xhr, textStatus, error){
-			      console.log(xhr.statusText);
-			      console.log(textStatus);
-			      console.log(error);
-			})
-			.always(function(data) {
-		    	alert( "complete" );
-			});
-		}
-	});
 });			
 </script>

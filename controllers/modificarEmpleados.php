@@ -8,12 +8,11 @@
 	require'../views/ModificarEmpleados.php';
 	require'../views/ExcepcionAdministracion.php';
 
-	/*
 	session_start();
 	if(!($_SESSION['login']==true)){
 		header("Location: login.php");
 		exit;
-	}*/
+	}
 
 	$emp = new Empleados();
 	$vError = new ExcepcionAdministracion;

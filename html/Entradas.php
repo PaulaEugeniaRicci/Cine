@@ -67,10 +67,10 @@
 							<table id="tblTickets">
 								<thead>
 									<tr>
-										<th>Tipo de Tickets</th>
-										<th>Cantidad:</th>
-										<th>Costo:</th>
-										<th>Subtotal:</th>
+										<th>Tipo de Entrada</th>
+										<th>Cantidad</th>
+										<th>Costo</th>
+										<th>Subtotal</th>
 									</tr>
 								</thead>
 							</table>
@@ -97,9 +97,7 @@
 </html>
 
 <script type="text/javascript">
-	//Funciones random p/mas adelante
-	//Esta tipo "estructurado", en general las funciones van dentro de otras funciones
-	//no separadas en bloques
+	//Funciones p/mas adelante
 		function capitalizeFirstLetter(string) {
   			return string.charAt(0).toUpperCase() + string.slice(1);
 		}
@@ -157,7 +155,7 @@
 			$( "#tblTickets" ).show(900);
 			$( "#tblTickets" ).append("<tbody id='ultimoPaso'></tbody>");
 
-			var cant_asientos = filas[0]['cant_asientos'];
+			var cant_asientos = filas[0]['cant_asientos'] - filas[0]['entradas'];
 			
 
 			for (i in filas){
@@ -225,7 +223,7 @@
 				  data : {id_proyeccion: id_proyeccion}
 				})
 				.done(function(data) { 			   	
-				   	//alert(JSON.stringify(data));
+				   	alert(JSON.stringify(data));
 				   	appendEntradas(data);			   		
 				})
 				.always(function(data) {
@@ -307,7 +305,6 @@
 	    });
 	  	
 	  	//The event.stopPropagation() method stops the bubbling of an event to parent elements, preventing any parent event handlers from being executed. (!!)
-	  	var cantidad_anterior = 0;
 	  	var flag = 0;
 	  	
 	  	$("#tblTickets").on("change", "select", function(event){
@@ -322,35 +319,6 @@
 
    			$("#tblTickets").find('td.subtotal').eq(numero).text('$'+monto);
 
-   				//$('.cantidad_entradas option:last').remove();
-   				//$("#tblTickets").find('.cantidad_entradas option');
-   			
-   			
-   			/*if (cantidad>cantidad_anterior){
-   				$(".cantidad_entradas").not("#"+id).each(function() {
-					for (k=0; k<cantidad; k++){
-						$(this).find("option:last").remove();
-						console.log("nuevo es mayor que anterior");
-					}
-				});
-   			}
-   			else if (cantidad>cantidad_anterior){
-   				$(".cantidad_entradas").not("#"+id).each(function() {
-					for (k=0; k<cantidad; k++){
-						$(this).append('<option class="asientos" value='+k+'>'+k+'</option>');
-						console.log("nuevo es menor que anterior");
-					}
-				});
-   			}
-   			
-			
-   			cantidad_anterior = cantidad;*/
-   			
-   			console.log("soy la cantidad actual: ", cantidad);
-   			console.log("soy la cantidad anterior: ", cantidad_anterior);
-
-   			cantidad_anterior = cantidad;
-   			//console.log($(this).val());
    			
 			$(".cantidad_entradas").each(function() {
 				var select = $(this).val();

@@ -12,7 +12,7 @@
 			
 			if(!ctype_digit($id_proyeccion)) throw new ExcepcionProyeccion("Error en el ID de la proyeccion.");
 
-			$this->db->query("SELECT p.id_pelicula, p.id_clasificacion, p.id_idioma, p.subtitulado, p.titulo, p.director, p.descripcion, p.duracion, p.estreno, c.descripcion_clasificacion, i.descripcion_idioma, p.poster, p.trailer, s.nombre, s.id_sucursal, DATE_FORMAT(proy.horario, '%d/%m %H:%i') as fecha, GROUP_CONCAT(g.descripcion_genero SEPARATOR ', ') as genero
+			$this->db->query("SELECT p.id_pelicula, p.id_clasificacion, p.id_idioma, p.subtitulado, p.titulo, p.director, p.descripcion, p.duracion, p.estreno, c.descripcion_clasificacion, i.descripcion_idioma, p.poster, p.trailer, s.nombre, s.id_sucursal, proy.id_proyeccion, DATE_FORMAT(proy.horario, '%d/%m %H:%i') as fecha, GROUP_CONCAT(g.descripcion_genero SEPARATOR ', ') as genero
 				FROM peliculas p
 				LEFT JOIN clasificaciones c ON p.id_clasificacion = c.id_clasificacion
 				LEFT JOIN idiomas i ON p.id_idioma = i.id_idioma
@@ -101,9 +101,10 @@
 		}
 
 		public function getTarifaSala($id_proyeccion){
-			$this->db->query("SELECT p.descripcion, p.valor, s.cant_asientos FROM precios p
+			$this->db->query("SELECT p.descripcion, p.valor, s.cant_asientos, COUNT(e.id_proyeccion) AS 'entradas' FROM precios p
 				INNER JOIN preciosdeproyecciones pp ON p.id_precio = pp.id_precio
 				INNER JOIN proyecciones proy ON proy.id_proyeccion = pp.id_proyeccion
+				LEFT JOIN entradas e ON e.id_proyeccion = proy.id_proyeccion
 				INNER JOIN salas s ON s.id_sala = proy.id_sala
 				WHERE pp.id_proyeccion = $id_proyeccion");
 			return $this->db->fetchAll();
@@ -345,6 +346,7 @@
 			if(!($this->flagProyeccionID($id))) throw new ExcepcionProyeccion("Error: no existe la proyeccion que desea eliminar o ya ha sido eliminada.");
 			
 			$this->db->query("DELETE FROM proyecciones WHERE id_proyeccion = $id");
+			$this->db->query("DELETE FROM preciosdeproyecciones WHERE id_proyeccion = $id");
 		}			
 	}
 

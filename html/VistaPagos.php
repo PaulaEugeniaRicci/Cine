@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	 <!-- Bootstrap CSS
+	 <!-- Bootstrap CSS -->
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="../style/disenio.css ">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   	<title>Pelicula</title>
 </head>
@@ -48,11 +48,11 @@
 				  			<div class="detalle_pedido">
 				  				<ul style="list-style-type:none;">
 								    <li>Pelicula: <?= $peli['titulo'] ?></li>
-								    <li>Sucursal: </li>
+								    <li>Sucursal: <?= $this->sucursal ?></li>
 								    <li>Sala: <?= $peli['nombre'] ?></li>
 								    <li>Dia y horario: <?= $peli['fecha']?>hs. </li>
-								    <li>Cantidad de entradas: </li>
-								    <li>Total a abonar: $</li>
+								    <li>Cantidad de entradas:  <?= $this->cant_entradas ?></li>
+								    <li>Total a abonar: $<?= $this->monto ?></li>
 								</ul>
 							</div>
 
@@ -93,9 +93,15 @@
 									</fieldset>
 
 									
-								</div>
+								</div>	
+									<input type="hidden" name="id_proy" id="id_proy" value="<?= $peli['id_proyeccion'] ?>">	
+									<input type="hidden" name="sucursal" id="sucursal" value="<?= $peli['id_sucursal'] ?>">	
+									<input type="hidden" name="cant_entradas" id="entradas" value="<?= $this->cant_entradas ?>">	
+									<input type="hidden" name="monto_total" id="monto" value="<?= $this->monto ?>">
+									
 									<button type="submit" class="btn btn-warning btn_conf_pago">CONFIRMAR PAGO</button>
 							</form>
+
 							<a class="btn btn-primary" href="entradas.php?id_pelicula=<?=$peli['id_pelicula'] ?>&id_sucursal=<?=$peli['id_sucursal'] ?>" class="">Volver</a>
 						</div>
 					</div>
@@ -106,58 +112,35 @@
 		<h5>CINEMA</h5>
 		
 		</div>
-		<div class="footer_login">
-			<a href="../controllers/listaPeliculas.php"><img src="../img/login.png" title="Acceso de personal"></a>
-		</div></footer>
+			<div class="footer_login">
+				<a href="../controllers/listaPeliculas.php"><img src="../img/login.png" title="Acceso de personal"></a>
+			</div></footer>
 		</div>
-		<script>
-			document.getElementById("form_pago").onsubmit = function(){
-				var metodo = document.getElementById('metodo').value;
-				var nro_tarjeta = document.getElementById('nro_tarjeta').value;
-				var cant_digitos = document.getElementById('nro_tarjeta').value.length;
-				var digito = nro_tarjeta.substr(0,1);
-
-				var seguridad = document.getElementById('seguridad').value;
-				var cant_digitos_seguridad = document.getElementById('seguridad').value.length;
-				
-
-				if(cant_digitos == 16){
-					if(cant_digitos_seguridad == 3){
-						return true;
-					}else{
-						alert("El código de seguridad debe tener 3 caracteres");
-							return false
-					}
-				}else{
-						alert("La clave de la tarjeta debe tener 16 digitos");
-						return false;
-					}
-				
-		}
-		</script>
 </body>
 </html>
 
 <script type="text/javascript">
-	$(document).ready(function(){
+	document.getElementById("form_pago").onsubmit = function(){
+		var metodo = document.getElementById('metodo').value;
+		var nro_tarjeta = document.getElementById('nro_tarjeta').value;
+		var cant_digitos = document.getElementById('nro_tarjeta').value.length;
+		var digito = nro_tarjeta.substr(0,1);
 
-		//Agrego los valores que faltan al div de detalle_pedido
-		var sucursal;
-		var cant_entradas;
-		var monto;
-	    <?php
-	        $suc_descripcion = $this->sucursal;
-	        $cantidad_entradas = $this->cant_entradas;
-	        $monto = $this->monto;
-	    ?>	        		
-	    sucursal = "<?=$suc_descripcion?>";
-	    cant_entradas = <?=$cantidad_entradas?>;
-	    monto = <?=$monto?>;
-	   
-	    $( "li:eq( 2 )" ).append(sucursal);
-	    $( "li:eq( 5 )" ).append(cant_entradas);
-	    $( "li:eq( 6 )" ).append(monto);
+		var seguridad = document.getElementById('seguridad').value;
+		var cant_digitos_seguridad = document.getElementById('seguridad').value.length;
+				
 
-	});	
+		if(cant_digitos == 16){
+			if(cant_digitos_seguridad == 3){
+				return true;
+			}else{
+				alert("El código de seguridad debe tener 3 caracteres");
+				return false
+			}
+		}else{
+			alert("La clave de la tarjeta debe tener 16 digitos");
+			return false;
+		}		
+	}
 </script>
 

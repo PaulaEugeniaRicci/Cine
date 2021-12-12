@@ -81,7 +81,7 @@
 			return $array_id_proyeccion;
 		}
 
-		//ALTA
+		/*/ALTA
 		public function cargarPrecios($descripcion, $dias){
 
 			//VALIDACIONES
@@ -107,7 +107,7 @@
 		    		$this->db->query("INSERT INTO preciosdeproyecciones (id_precio, id_proyeccion) VALUES ($last_id, $value)");
 		    	}
 			}
-		}
+		}*/
 
 
 		//MODIFICAR
@@ -142,7 +142,7 @@
 			}		 			
 		}
 		
-		//BAJA
+		/*/BAJA
 		public function borrarPrecios($id){
 
 			//VALIDACION
@@ -151,7 +151,7 @@
 			if(!($this->flagPrecioID($id))) throw new ExcepcionPrecio("Error: no existe la tarifa que desea modificar.");
 			
 			$this->db->query("DELETE from precios WHERE id_precio = $id");
-		}
+		}*/
 
 	}
 

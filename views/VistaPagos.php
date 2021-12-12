@@ -1,8 +1,8 @@
 <?php
 
-// ..views/Pagos.php
+// ..views/VistaPagos.php
 
-class Pagos extends View {
+class VistaPagos extends View {
 
 	public $pelicula;
 	public $sucursal;
