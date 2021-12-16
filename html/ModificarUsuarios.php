@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
      <link rel="stylesheet" href="../html/style/disenio.css ">
-     <script src="https://kit.fontawesome.com/187a5bbb1c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One">
+      <script src="https://kit.fontawesome.com/187a5bbb1c.js" crossorigin="anonymous"></script>
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  	   
-  	<title>Lista de Salas</title>
+
+  	<title>Modificar usuarios</title>
 </head>
 <body>
-
 
 	<!-- Barra de navegación principal -->
 		<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-navCinema" >
@@ -50,80 +49,63 @@
 			</div>
 
 
-		<!-- Tabla -->
+
 			<div class="col-12 col-lg-10 "> <!-- zona forms y tablas -->
-					<table class="table mt-2">
-						<tr>
-						<th colspan="6" class="titulo-formulario">
-							<h4>LISTADO DE SALAS</h4>
-						</th>
-						</tr>
+				<div class="titulo-formulario p-2 mt-2 text-center"><h4>MODIFICAR USUARIO</h4></div>
+				<form class="formulario" action="" method="POST">
 
-						<tr>
-						<th colspan="6">
-							<form class="form_search mt-1 mb-1" action="listaSalas.php" method="POST">
+					<?php foreach ($this->usuarios as $u){ ?>
+					<div class="bloque_form_columns">		
+						<div class="form_column1 mt-2">	
+							<label for="email">E-mail</label>
+							<input class="input_general" type="text" name="email" maxlength="100" id="email" value="<?= $u['email'] ?>" required>
+							<label for="password">Password</label>
+							<input class="input_general" type="password" name="password" maxlength="60" id="password" required>
+							<label for="rol">Rol</label>
+							<input class="input_general" type="text" name="rol" maxlength="20" value="<?= $u['rol'] ?>" required>
+							
+						</div>
+						<div class="form_column2 mt-2">
+							<label for="usuario">Usuario</label>
+								<?php
+									echo'
+										<select class="input_general" name="usuario" id="usuario">
+										<option value="" disabled selected></option>';
+										foreach ($this->empleados as $e) {
+											echo '<option value="'.$e['id_empleado'].'">
+											'.$e['id_empleado'].' - ' .$e['nombre'].'  '.$e['apellido'].'
+											</option>';
+										}
+									echo'</select>'
+								?>
+								</div>
+					<?php } ?>
+					</div>
+					<div class="form_botones">				
 					
-						<?php
-								echo'
-									<select class="input_general" name="sucursal" id="sucursal">
-									<option value= "" disabled selected >Buscar por sucursal</option>';
-									foreach ($this->sucursales as $suc) {
-										echo '<option value="'.$suc['id_sucursal'].'">
-										'.$suc['descripcion'].'
-										</option>';
-									}
-								echo'</select>'
-						?>
-						<input type="submit" name="SetSubmit" value="Buscar">
-						<a class="btn btn-primary" href="altaSalas.php" class="">Nueva Sala</a>
-					</form>	
-						</th>
-						</tr>
-
-						<tr>
-							<th>ID</th>
-							<th>Nombre</th>
-							<th>Cantidad de Asientos</th>
-							<th>Sucursal</th>
-							<th>Direccion</th>										
-							<th>Opciones</th>
-						</tr>
-						<?php
-						foreach ($this->salas as $s) 
-						{
-							echo'<tr class="fila_tabla">
-								<td><div class= "celda">'.$s['id_sala'].'</div></td>
-								<td><div class= "celda">'.$s['nombre'].'</div></td>
-								<td><div class= "celda">'.$s['cant_asientos'].'
-								<td><div class= "celda">'.$s['descripcion'].'</div></td>
-								<td><div class= "celda">'.$s['direccion'].'</div></td>
-								</div></td>
-									<td><div class= "celda">
-										<button name="eliminar" class="btn_eliminar" id='.$s['id_sala'].' >Deshabilitar</button>
-									</div>
-									</td>					
-								</tr>';			
-						}
-						?>
-					</table>
-			</div>		
+					<input type="submit" name="setSubmit" value="Guardar" class="btn btn-primary submit">
+					<a class="btn btn-outline-secondary volver" href="administracion.php" class="volver">Volver</a>
+			</div>
+			</form>
+		
 		</div>
-		</div>
+			
+		
 
+	</div>
 </body>
 </html>
 
-
 <script type="text/javascript">
-        $('button[name="eliminar"]').click(function(event){
-        	var id_enviar = $(this).attr('id');
-				var opcion = confirm("¿Esta seguro que desea deshabilitar esta sala? Esto afectará las proyecciones programadas.");
-				if (opcion == true){
-					var foo = $(event.target).closest("tr");
-					foo.remove();
-					$.post('listaSalas.php', {id_baja: id_enviar}, function (data) {
-						alert ("La sala n° "+ id_enviar + " ha sido eliminada.");
-					});								
-    			}
-			});      	 		
+    $(document).ready(function(){
+	    var foo;
+	    <?php
+	       	foreach ($this->usuarios as $u){
+	    ?>	        		
+	        foo = <?=$u['id_empleado']?>;
+	    <?php } ?>
+
+	    $('#usuario').val(foo);
+    })
 </script>
+

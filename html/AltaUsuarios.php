@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../html/style/disenio.css ">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One">
     <script src="https://kit.fontawesome.com/187a5bbb1c.js" crossorigin="anonymous"></script>
-  	<title>Agregar nuevo empleado</title>
+  	<title>Agregar nuevo usuario</title>
 </head>
 <body>
 
@@ -49,31 +49,27 @@
 
 
 			<div class="col-12 col-lg-10 "> <!-- zona forms y tablas -->
-				<div class="titulo-formulario p-2 mt-2 text-center"><h4>NUEVO EMPLEADO</h4></div>
+				<div class="titulo-formulario p-2 mt-2 text-center"><h4>NUEVO USUARIO</h4></div>
 				<form class="formulario" action="" method="POST">
 					<div class="bloque_form_columns">		
 						<div class="form_column1 mt-2">	
-							<label for="nombre">Nombre</label>
-							<input class="input_general" type="text" name="nombre" maxlength="20" id="nombre" required>
-							<label for="apellido">Apellido</label>
-							<input class="input_general" type="text" name="apellido" maxlength="20" id="apellido" required>
-							<label for="telefono">Teléfono</label>
-							<input class="input_general" type="text" name="telefono" maxlength="20" required>
+							<label for="email">E-mail</label>
+							<input class="input_general" type="text" name="email" maxlength="100" id="nombre" required>
+							<label for="password">Password</label>
+							<input class="input_general" type="password" name="Password" maxlength="60" id="apellido" required>
+							<label for="rol">Rol</label>
+							<input class="input_general" type="text" name="rol" maxlength="20" required>
 							
 						</div>
 						<div class="form_column2 mt-2">
-							<label  for="direccion">Dirección</label>
-							<input class="input_general" type="text" name="direccion" maxlength="20" id="direccion" required>
-							<label for="cuil">Cuil</label>
-							<input class="input_general" type="text" name="cuil" maxlength="20" id="cuil" required>
-							<label for="sucursal">Sucursal</label>
+							<label for="usuario">Usuario</label>
 								<?php
 									echo'
-										<select class="input_general" name="sucursal" id="sucursal">
+										<select class="input_general" name="usuario" id="usuario">
 										<option value="" disabled selected></option>';
-										foreach ($this->sucursales as $s) {
-											echo '<option value="'.$s['id_sucursal'].'">
-											'.$s['descripcion'].'
+										foreach ($this->usuarios as $u) {
+											echo '<option value="'.$u['id_empleado'].'">
+											'.$u['id_empleado'].' - ' .$u['nombre'].'  '.$u['apellido'].'
 											</option>';
 										}
 									echo'</select>'
@@ -83,7 +79,7 @@
 					<div class="form_botones">				
 					
 					<input type="submit" name="setSubmit" value="Guardar" class="btn btn-primary submit">
-					<a class="btn btn-outline-secondary volver" href="listaEmpleados.php" class="volver">Volver</a>
+					<a class="btn btn-outline-secondary volver" href="administracion.php" class="volver">Volver</a>
 					</div>
 				</form>
 			
@@ -92,6 +88,3 @@
 		</div>
 </body>
 </html>
-
-
-

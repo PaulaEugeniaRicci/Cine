@@ -148,10 +148,10 @@
 			if(!ctype_digit($idioma)) throw new ExcepcionPelicula("Error en el ID del idioma.");
 
 			//Validacion de fecha
-			$fecha_validar  = explode('-', $fecha);	
+			/*$fecha_validar  = explode('-', $fecha);	
 			if (!(checkdate($fecha_validar[2], $fecha_validar[1], $fecha_validar[0]))){
 			        throw new ExcepcionPelicula("Error: la fecha no es valida.");
-			}
+			}*/
 			
 			////Evitar cargar la misma pelicula, los parametros son titulo y subtitulado
 			$this->db->query("SELECT *
@@ -260,6 +260,11 @@
 			
 			if(!($this->flagPeliculaID($id))) throw new ExcepcionPelicula("Error: no existe la pelicula que desea eliminar o ya ha sido eliminada.");
 			
+			$this->db->query("UPDATE pagos p
+			    JOIN entradas e ON p.id_pago = e.id_pago 
+	    		JOIN proyecciones proy ON proy.id_pelicula = $id
+				SET p.estado = 'devolucion'");
+
 			$this->db->query("DELETE FROM peliculas WHERE id_pelicula = $id");
 
 			//BAJA en tabla GENEROSDEPELICULAS

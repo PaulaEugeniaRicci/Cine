@@ -1,13 +1,7 @@
 <?php
 
 // ../controllers/index.php
-	/*
-	session_start();
-	if(!($_SESSION['login']==true)){
-		header("Location: login");
-		exit;
-	}
-	*/
+
 
 	require'../fw/fw.php';
 	require'../models/Proyecciones.php';

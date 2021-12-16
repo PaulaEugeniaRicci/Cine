@@ -48,7 +48,7 @@
 
 
 	//Metodos de marco p/validar tarjeta
-	if(isset($_POST['nro_tarjeta'])){
+	if(isset($_POST['nro_tarjeta']) and $_POST['cant_entradas']>0){
 		
 		//VALIDACIONES DEL INPUT - Si evade el require de los campos
 		if (empty($_POST['nombre']))die("Debe ingresar el nombre del cliente.");

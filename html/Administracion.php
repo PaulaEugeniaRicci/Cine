@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   	   <script src="https://kit.fontawesome.com/187a5bbb1c.js" crossorigin="anonymous"></script>
-  	<title>Lista de empleados</title>
+  	<title>Administracion</title>
 </head>
 <body>
 
@@ -51,39 +51,17 @@
 		<!-- Tabla -->
 			<div class="col-12 col-lg-10 "> <!-- zona forms y tablas -->
 
-				
-				
-					
-					
-					
-
 
 					<table class="table mt-2">
 						<tr>
 						<th colspan="8" class="titulo-formulario">
-							<h4>LISTADO DE EMPLEADOS </h4>
+							<h4>USUARIOS</h4>
 						</th>
 						</tr>
 
 						<tr>
 						<th colspan="8">
-							<form class="form_search mt-1 mb-1" action="listaEmpleados.php" method="POST">
-						
-						<input type="text" name="valor" class="txtSize input_general" placeholder="Buscar por CUIL/Apellido" size="20" maxlength="20">
-					
-						<?php
-								echo'
-									<select class="input_general" name="sucursal" id="sucursal">
-									<option value= "" disabled selected >Buscar por sucursal</option>';
-									foreach ($this->sucursales as $s) {
-										echo '<option value="'.$s['id_sucursal'].'">
-										'.$s['descripcion'].'
-										</option>';
-									}
-								echo'</select>'
-						?>
-						<input type="submit" name="SetSubmit" value="Buscar">
-						<a class="btn btn-primary" href="altaEmpleados.php" class="">Nuevo Empleado</a>
+						<a class="btn btn-primary" href="altaUsuarios.php" class="">Nuevo Usuario</a>
 					</form>
 						</th>
 						</tr>
@@ -93,34 +71,25 @@
 							<th>ID</th>
 							<th>Nombre</th>
 							<th>Apellido</th>
-							<th>CUIL</th>
-							<th>Direccion</th>
-							<th>Telefono</th>
-							<th>Sucursal</th>
+							<th>Rol</th>
 							<th>Opciones</th>
 						</tr>
 						<?php
-						foreach ($this->empleados as $e) 
+						foreach ($this->usuarios as $u) 
 						{
 							echo'<tr class="fila_tabla">
-									<td><div class= "celda">'.$e['id_empleado'].'</div>
+									<td><div class= "celda">'.$u['id_empleado'].'</div>
 </td>
-									<td><div class= "celda">'.$e['nombre'].'</div>
+									<td><div class= "celda">'.$u['nombre'].'</div>
 </td>
-									<td><div class= "celda">'.$e['apellido'].'</div>
+									<td><div class= "celda">'.$u['apellido'].'</div>
 </td>
-									<td><div class= "celda">'.$e['cuil'].'</div>
-</td>
-									<td><div class= "celda">'.$e['direccion'].'</div>
-</td>
-									<td><div class= "celda">'.$e['telefono'].'</div>
-</td>
-									<td><div class= "celda">'.$e['descripcion'].'</div>
+									<td><div class= "celda">'.$u['rol'].'</div>
 </td>
 									<td><div class= "celda">
-										<a href=modificarEmpleados.php?ide='.$e['id_empleado'].' class="btn_modificar">Modificar</a>
+										<a href=modificarUsuarios.php?ide='.$u['id_empleado'].' class="btn_modificar">Modificar</a>
 
-										<button name="eliminar" class="btn_eliminar" id='.$e['id_empleado'].' >Eliminar</button>
+										<button name="eliminar" class="btn_eliminar" id='.$u['id_empleado'].' >Eliminar</button>
 									</div>
 </td>					
 								</tr>';			
@@ -144,12 +113,12 @@
 <script type="text/javascript">
         $('button[name="eliminar"]').click(function(event){
         	var id_enviar = $(this).attr('id');
-				var opcion = confirm("¿Esta seguro que desea eliminar este empleado?");
+				var opcion = confirm("¿Esta seguro que desea eliminar este usuario?");
 				if (opcion == true){
 					var foo = $(event.target).closest("tr");
 					foo.remove();
-					$.post('listaEmpleados.php', {id_baja: id_enviar}, function () {
-						alert ("El empleado ha sido eliminado.");
+					$.post('administracion.php', {id_baja: id_enviar}, function () {
+						alert ("El usuario ha sido eliminado.");
 					});			
     			}
 			});      	 		

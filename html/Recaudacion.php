@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	 <!-- Bootstrap CSS -->
+	 <!-- Bootstrap CSS 
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
      <link rel="stylesheet" href="../html/style/disenio.css ">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  	   <script src="https://kit.fontawesome.com/187a5bbb1c.js" crossorigin="anonymous"></script>
-  	<title>Lista de empleados</title>
+  	   <script src="https://kit.fontawesome.com/187a5bbb1c.js" crossorigin="anonymous"></script>-->
+  	<title>Recaudacion</title>
 </head>
 <body>
 
@@ -51,25 +51,16 @@
 		<!-- Tabla -->
 			<div class="col-12 col-lg-10 "> <!-- zona forms y tablas -->
 
-				
-				
-					
-					
-					
-
-
 					<table class="table mt-2">
 						<tr>
 						<th colspan="8" class="titulo-formulario">
-							<h4>LISTADO DE EMPLEADOS </h4>
+							<h4>RECAUDACIÓN SUCURSAL: </h4>
 						</th>
 						</tr>
 
 						<tr>
 						<th colspan="8">
-							<form class="form_search mt-1 mb-1" action="listaEmpleados.php" method="POST">
-						
-						<input type="text" name="valor" class="txtSize input_general" placeholder="Buscar por CUIL/Apellido" size="20" maxlength="20">
+							<form class="form_search mt-1 mb-1" action="recaudacion.php" method="POST">
 					
 						<?php
 								echo'
@@ -83,74 +74,48 @@
 								echo'</select>'
 						?>
 						<input type="submit" name="SetSubmit" value="Buscar">
-						<a class="btn btn-primary" href="altaEmpleados.php" class="">Nuevo Empleado</a>
 					</form>
 						</th>
 						</tr>
 						
 
 						<tr>
-							<th>ID</th>
-							<th>Nombre</th>
-							<th>Apellido</th>
-							<th>CUIL</th>
-							<th>Direccion</th>
-							<th>Telefono</th>
-							<th>Sucursal</th>
-							<th>Opciones</th>
+							<th>MES</th>
+							<th>VENTAS</th>
+							<th>CRECIMIENTO</th>
+							<th>% FRENTE A MES ANTERIOR</th>
 						</tr>
+
+						<tr class="fila_tabla">ENERO</tr>
+						<tr class="fila_tabla">FEBRERO</tr>
+						<tr class="fila_tabla">MARZO</tr>
+						<tr class="fila_tabla">ABRIL</tr>
+						<tr class="fila_tabla" >MAYO</tr>
+						<tr class="fila_tabla">JUNIO</tr>
+						<tr class="fila_tabla">JULIO</tr>
+						<tr class="fila_tabla">AGOSTO</tr>
+						<tr class="fila_tabla">SEPTIEMBRE</tr>
+						<tr class="fila_tabla">OCTUBRE</tr>
+						<tr class="fila_tabla">NOVIEMBRE</tr>
+						<tr class="fila_tabla">DICIEMBRE</tr>
+
 						<?php
-						foreach ($this->empleados as $e) 
+						foreach ($this->resumen as $r) 
 						{
 							echo'<tr class="fila_tabla">
-									<td><div class= "celda">'.$e['id_empleado'].'</div>
+									<td><div class= "celda">'.$r['fecha'].'</div>
 </td>
-									<td><div class= "celda">'.$e['nombre'].'</div>
+									<td><div class= "celda">'.$r['monto'].'</div>
 </td>
-									<td><div class= "celda">'.$e['apellido'].'</div>
+									<td><div class= "celda">'.$r['estado'].'</div>
 </td>
-									<td><div class= "celda">'.$e['cuil'].'</div>
-</td>
-									<td><div class= "celda">'.$e['direccion'].'</div>
-</td>
-									<td><div class= "celda">'.$e['telefono'].'</div>
-</td>
-									<td><div class= "celda">'.$e['descripcion'].'</div>
-</td>
-									<td><div class= "celda">
-										<a href=modificarEmpleados.php?ide='.$e['id_empleado'].' class="btn_modificar">Modificar</a>
-
-										<button name="eliminar" class="btn_eliminar" id='.$e['id_empleado'].' >Eliminar</button>
-									</div>
-</td>					
+													
 								</tr>';			
 						}
 						?>
 					</table>
-					
-				
-			
-			</div>
-
-			
-		</div> 
+				</div>	
+			</div> 
 		</div>	
-
-
-</body>
+	</body>
 </html>
-
-
-<script type="text/javascript">
-        $('button[name="eliminar"]').click(function(event){
-        	var id_enviar = $(this).attr('id');
-				var opcion = confirm("¿Esta seguro que desea eliminar este empleado?");
-				if (opcion == true){
-					var foo = $(event.target).closest("tr");
-					foo.remove();
-					$.post('listaEmpleados.php', {id_baja: id_enviar}, function () {
-						alert ("El empleado ha sido eliminado.");
-					});			
-    			}
-			});      	 		
-</script>

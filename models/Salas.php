@@ -53,12 +53,17 @@
 			//VALIDACION
 			if(!ctype_digit($id)) throw new ExcepcionSala("Error en el ID de la sala.");
 			if($id < 1) throw new ExcepcionSala("Error en el ID de la sala.");
-			var_dump($id);
 
+			$this->db->query("UPDATE pagos p
+			    JOIN entradas e ON p.id_pago = e.id_pago 
+	    		JOIN proyecciones proy ON proy.id_sala = $id
+				SET p.estado = 'devolucion'");
+
+			//Directamente elimino todo con las restricciones -on cascade- en la bdd
 			$this->db->query("DELETE from salas WHERE id_sala = $id");
+
+			
 		}	
-		
-		
 	}
 
 	class ExcepcionSala extends Exception {}

@@ -72,13 +72,19 @@
 			if($asientos<$entradas) throw new ExcepcionPago("Error: no hay $cant_entradas disponibles para esa función.");
 			
 			//INSERT pagos
-			$this->db->query("INSERT INTO pagos (fecha, metodo, nro_tarjeta, monto) VALUES ('$fecha', $metodo, $nro_tarjeta, '$monto'); ");
+			$this->db->query("INSERT INTO pagos (fecha, metodo, nro_tarjeta, monto, estado) VALUES ('$fecha', $metodo, $nro_tarjeta, '$monto', 'pendiente'); ");
 			$last_id = $this->db->insertId();
 
 			//INSERT entradas
 			for ($i = 0; $i < $cant_entradas; $i++) { 
 				$this->db->query("INSERT INTO entradas (id_proyeccion, id_pago, dni_cliente) VALUES ($proyeccion, $last_id, $dni); ");
 			}
+		}
+
+		//Parte administrativa - recaudacion
+
+		public function getResumenSucursal($sucursal){
+			$this->db->query("SELECT * FROM pagos");
 		}
 	}
 	class ExcepcionPago extends Exception {}

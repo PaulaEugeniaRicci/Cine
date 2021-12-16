@@ -32,7 +32,8 @@
 				FROM proyecciones proy
 				INNER JOIN peliculas p ON p.id_pelicula = proy.id_pelicula
 				WHERE proy.horario > CURDATE()
-				GROUP BY p.id_pelicula");
+				GROUP BY proy.id_pelicula, p.subtitulado
+				ORDER BY 7");
 
 			if($this->db->numRows()<1) throw new ExcepcionProyeccion("No hay funciones disponibles.");
 			
@@ -46,7 +47,8 @@
 				INNER JOIN peliculas p ON p.id_pelicula = proy.id_pelicula
 				WHERE s.id_sucursal = $id AND
 				proy.horario > CURDATE()
-				GROUP BY p.id_pelicula;");
+				GROUP BY proy.id_pelicula, p.subtitulado
+				ORDER BY 7");
 
 			if($this->db->numRows()<1) throw new ExcepcionProyeccion("No hay funciones disponibles en esa sucursal.");
 
@@ -86,6 +88,8 @@
 			$anio = date('Y', $date);
 
 			$fecha = explode("-", $fecha);
+			if ($fecha[1] == 1){ $anio = date('Y', strtotime('+1 year')); }
+
 			$fechaComparar = new DateTime("$anio"."-"."$fecha[1]"."-"."$fecha[0]");
 			$fechaComparar = $fechaComparar->format('d/m/Y');
 
@@ -345,8 +349,10 @@
 			
 			if(!($this->flagProyeccionID($id))) throw new ExcepcionProyeccion("Error: no existe la proyeccion que desea eliminar o ya ha sido eliminada.");
 			
+			$this->db->query("UPDATE pagos SET estado = 'devolucion' WHERE
+				id_pago IN (SELECT id_pago FROM entradas WHERE id_proyeccion = $id)");
 			$this->db->query("DELETE FROM proyecciones WHERE id_proyeccion = $id");
-			$this->db->query("DELETE FROM preciosdeproyecciones WHERE id_proyeccion = $id");
+
 		}			
 	}
 

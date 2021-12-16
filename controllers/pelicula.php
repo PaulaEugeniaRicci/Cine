@@ -1,13 +1,6 @@
 <?php
 
 // ../controllers/pelicula.php
-	/*
-	session_start();
-	if(!($_SESSION['login']==true)){
-		header("Location: login");
-		exit;
-	}
-	*/
 
 	require'../fw/fw.php';
 	require'../models/Peliculas.php';

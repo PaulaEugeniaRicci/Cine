@@ -1,76 +1,44 @@
+:root{
+	--color-background-navtop: linear-gradient(to top right,#0b254a,#12407e) ;
+	--color-background-body: #eaeaea ;
+	--color-background-footer: linear-gradient(to top right,#000 0,#0b254a);
+	--color-text-footer: #808080 ;
+	
+}
+
+/*Nav-top*/
+.bg-navCinema{
+	background: var(--color-background-navtop);
+
+}
+
 @font-face{
 	font-family: "Cinepolis";
 	src: url("../fonts/Cinepolis.otf");
 }
 
-body{
-	
-	background-color: #eaeaea;
-}
-
-/*//////BARRA DE NAVEGACION QUE SE VE ARRIBA//////*/
-/*Barra completa*/
-.navbar{
-	grid-area: navbar;
-	background: linear-gradient(to top right,#0b254a,#12407e);
-
-}
-
-/*Titulo*/
 .navbar-brand{
 	font-family: Cinepolis;
-
 }
 
-/*////PIE DE PAGINA DE TODAS LAS PANTALLAS/////*/
+/*-------*/
+
+body{
+	background-color: var(--color-background-body) ;
+}
+
+/*Pie de pagina*/
 footer{
-	grid-area: footer;
-		height: 130px;
-	display: flex;
-	flex-direction: row;
-		justify-content: space-between;
-	background: linear-gradient(to top right,#000 0,#0b254a);
-	color: #808080;
-	padding: 20px;
-}
-
-.footer_login{
-	
-}
-
-.creditos{
-
+	background: var(--color-background-footer);
+	color: var(--color-text-footer) ;
 }
 
 
-/*///////DISEÑO DE LA PAGINA PRINCIPAL DEL SITIO////////*/
-/*contenedor del sitio index*/
-.container_index{
-background-color: white;
-	width: 100%;
-	max-width: 100%;
-	padding-left: 0;
-	padding-right: 0;
+/*DISEÑO DE LA PAGINA PRINCIPAL DEL SITIO*/
 
-	display: grid;
-	grid-template-columns: repeat(1, 1fr);
-	grid-template-rows: repeat(5, auto);
-	grid-template-areas: "navbar"
-						 "slide"
-						 "cartelera"
-						 "prox"
-						 "footer"
-						 ;
-}
-
-/*Carrousel de anuncios (SLIDE)*/
-.carousel{
-	grid-area: slide;
-}
 
 /*Contenedor de toda la seccion de cartelera*/
 .cartelera{
-	grid-area: cartelera;
 	width: 100%;
 	min-height: calc(100vh - 56px - 130px);
 	margin: 56px auto 20px auto;
@@ -78,23 +46,8 @@ background-color: white;
 
 
 .items_cartelera{
-	display: flex;
 	column-gap: 15px;
 	height: 60px;
-}
-
-.item_cartelera{
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-
-}
-
-.cartelera_proximamente{
-	grid-area: prox;
-	width: 100%;
-	margin: 20px auto 40px auto;
-	background-color: #343a40;
 }
 
 /*Contenedor de titulo de cartelera y los selects*/
@@ -105,60 +58,28 @@ background-color: white;
 	padding: 10px 0 15px 0;
 	
 
-	display: flex;
+	
 	flex-direction: row;
 	justify-content: center;
 	flex-wrap: wrap;
 	}
 
-.cabecera_proximo_estrenos{
-	width: 100%;
-
-	margin-bottom: 20px;
-	padding: 10px;
-	
-
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	flex-wrap: wrap;	
-}
-
-/*Titulo de la cartelera*/
-.titulo_cartelera{
-	font-size: 26px;
-	color: white;
-	font-family: Montserrat;
-}
-
-.label_cartelera{
-	color: white;
-}
-
 
 /*Formulario que contiene los selects de la cartelera (filtros)*/
 .formulario_select_sucursal{
 	width: 95%;
-	grid-area: selector;
-	display: flex;
 
 }
 
 /*Selects del formulario de la cartelera (filtros)*/
 .formulario_select_sucursal select{
 	padding: 10px;
-	background-color: white;
-	color: black;
 	border-radius: 4px;
 }
-
-
 
 .boton_verTodo{
 	width: 100px;
 	height: 45px;
-	border: 0;
-	cursor: pointer;
 }
 
 /*Contenedor de los posters junto a sus titulos*/
@@ -206,40 +127,30 @@ background-color: white;
 
 
 /*Diseño de secciones de administradores*/
-.container_alternative{
-		padding-top: 56px;
-		width: 100%;
-		height: 100vh;
-		background-color: #eaeaea;
 
-		display: grid;
-		grid-template-columns: repeat(6, 1fr);
-		grid-template-rows: repeat(1, auto);
-		grid-template-areas: "herr formulario formulario formulario formulario formulario";
-}
 
 .navbar_dev{
-	grid-area: herr;
-	width: 240px;
+	width: 100%;
 	background-color: #374f77;
 	border-right: 1px solid #253550;
-	box-shadow: 3px 0px 3px gray;
+
 }
 
-.titulo_formulario{
+.navbar_dev_container{
+	background-color: #374f77;
+		box-shadow: 3px 0px 3px gray;
+		min-height: 100vh ;
+}
+
+.titulo-formulario{
 	background-color: #2e4263;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 45px;
+	min-width: 1024px;
 	border-radius: 4px 4px 0 0;
-}
-
-.titulo_formulario p{
 	color: white;
 }
+
+
+
 
 .dev_item_link{
 	height: 44px;	
@@ -298,22 +209,13 @@ background-color: white;
 	font-size: medium;
 }
 
-.group_search{
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	column-gap: 15px;
-	justify-content: center;
-	align-items: center;
-	border-left: 1px solid #bcbcbc;
-	border-right: 1px solid #bcbcbc;
-	padding: 15px 0 15px 0;
-}
+
 
 
 
 
 .form_search{
+	
 	display: flex;
 	flex-direction: row;
 	column-gap: 15px;
@@ -322,7 +224,7 @@ background-color: white;
 
 table{
 		border: 1px solid #bcbcbc;
-		width: 100%;
+		min-width: 1024px;
 }
 
 th{
@@ -364,19 +266,6 @@ th{
 }
 
 
-.container_alter_tablas{
-		width: 100%;
-		background-color: #d6d4d4;
-
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(4, auto);
-		grid-template-areas: "navbar navbar navbar navbar"
-							 "titulo titulo titulo titulo"
-							 "formulario formulario formulario formulario"
-							 "footer footer footer footer"	;
-}
-
 /*Barra debajo del navbar que contiene el titulo del area en que se encuentra*/
 .titulo_seccion{
 	grid-area: titulo;
@@ -391,28 +280,18 @@ th{
 /*Titulo de la barra que está debajo del navbar*/
 .titulo_seccion h2{
 	margin-left : 13px;
-	color: white;
 	font-family: sans-serif;
 	font-size: 16px;
+	color: white;
 }
 
-/*Contenedor del formulario de las secciones de admin*/
-.container_form{
-	width: 100%;
-	padding: 10px 50px 50px 50px;
-	grid-area: formulario;
-
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
 
 /*EL formulario*/
 .formulario{
 	display: flex;
 	flex-direction: column;
-		border: 1px solid #bcbcbc;
-		width: 100%;
+	border: 1px solid #bcbcbc;
+	min-width: 1024px;
 
 }
 
@@ -429,7 +308,7 @@ label{
 }
 
 .input_general{
-	width: 100%;
+	width: 327px;
 	height: 36px;
 	padding: 6px 12px 6px 12px;
 }
@@ -487,6 +366,8 @@ label{
 	border: 0;
 	border-radius: 4px;
 	align-self: center;
+	color:  white;
+	font-size: 12px;
 	
 }
 
@@ -512,62 +393,20 @@ label{
 }
 
 /*///////DISEÑO DE LA PAGINA CON LA INFORMACIÓN SOBRE LA PELICULA/////////*/
-.container_pelicula{
-	width: 100%;
-
-	background-color:  #efefef;
-
-	display: grid;
-	grid-template-columns: repeat(1, 1fr);
-	grid-template-rows: repeat(3, auto);
-	grid-template-areas:"titulo"
-						 "pelicula"
-						 "footer";
-
+.fixContainer{
+	margin-top: 56px;
 }
 
 .titulo_pelicula{
-	width: 100%;
-	grid-area: titulo;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	color: white;
 	font-family: Montserrat;
-
 	font-size: 1.8rem;
-	
-	margin: 56px 0 0 0;
-	text-transform: uppercase;
 	background-color: black;
 	height: 90px;
-}
-.titulo_pelicula h3{
-	font-weight: bold;
-}
-
-
-.container_pelicula_detalles{
-	width: 88%;
-	background-color: #efefef;
-	margin: auto;
-	padding: 20px 70px 20px 70px;
-	grid-area: pelicula;
-
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(3, auto);
-	grid-template-areas: 
-						"poster trailer trailer "
-						 "sinopsis sinopsis detalles"
-						 "comprar . detalles";
-	grid-row-gap: 20px;
-	grid-column-gap: 40px;
+	align-items: center;
 }
 
 .poster{
-	grid-area: poster;
 	height: 390px;	
 }
 
@@ -578,63 +417,23 @@ label{
 }
 
 .trailer{
-	grid-area: trailer;
-	justify-self: end;
+	height: 100%;
+
 }
 
-.sinopsis{
-	grid-area: sinopsis;
+.trailer iframe{
+	width: 100%;
+	height: 100%;
 }
 
-.detalles{
-	grid-area: detalles;
-
-	font-family: helvetica;
-	font-size: 12px;
-}
-
-/*boton de comprar*/
-.comprar{
-	grid-area: comprar;
-	max-width: 285px;
-	height: 43px;
-	align-self: center;
-	font-weight: bold;	
-}
 
 
 /*/////DISEÑO DE LA PAGINA DE PEDIDO DE ENTRADAS///////*/
-.container_pelicula_entradas{
-	width: 88%;
-	background-color: #efefef;
-	margin: 0 auto 0 auto;
-	padding: 20px 70px 20px 70px;
-	grid-area: pelicula;
-		justify-items: center;
-
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: repeat(2, auto);
-	grid-template-areas: "poster form form form"
-						 "detalles form form form"	 ;
-	grid-row-gap: 20px;
-	grid-column-gap: 40px;
-
-
-}
-
-
 .form_compra{
 	grid-area: form;
 	display: flex;
 	flex-direction: column;
 	gap:12px;
-}
-
-.entrada_sucursal{
-	grid-area: form;
-	width: 250px;
-	height: 40px;
 }
 
 
@@ -720,73 +519,35 @@ input[type="radio"]:checked + .lbl-radio{
 	margin: 20px 0 40px 0;
 	align-self: center;
 }
+
+
 /*/////DISEÑO DE LA PAGINA DE PAGO////*/
 
-.container_pelicula_pago{
-	width: 88%;
-	background-color: #efefef;
-	margin: 0 auto 0 auto;
-	padding: 20px 70px 20px 70px;
-	grid-area: pelicula;
+.detalle_pedido{
+	background-color: white;
+	font-size: 12px;
+}
 
+.inputs_pago{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	grid-row-gap: 2px;
+}
 
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: repeat(2, auto);
-	grid-template-areas: "poster centro centro centro  "
-						"detalles centro centro centro"
-						
-						 	 ;
-	grid-row-gap: 20px;
-	grid-column-gap: 40px;
-
-
-
+.input_pago{
+	width: 100%;
+		height: 36px;
+	padding: 6px 12px 6px 12px;
 }
 
 .form_pago{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top:10px; 
-
-}
-.centro{
-	grid-area: centro;
-	display: flex;
-	flex-direction: column;
-	width: 100%;
 }
 
-.detalle_pedido{
-	grid-area: pedido;
-	background-color: white;
-	font-size: 12px;
-
-}
-.inputs_pago{
-	display: flex;
-	flex-direction: column;
-	width: 49%;
-	grid-row-gap: 2px;
-}
-
-.columnas_pago{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	width: 100%;
-	column-gap: 20px;
-
-}
-
-.btn_conf_pago{
-
-	margin: 30px auto 5px auto;
-	font-weight: bold;
-	align-self: flex-end;
-}
-
+/*Mensajes al realizar el pago*/
 .notificacion{
 	min-height: calc(100vh - 56px - 122px);
 	display: flex;
@@ -799,7 +560,3 @@ input[type="radio"]:checked + .lbl-radio{
 	text-align: center;
 	font-weight: bold;
 }
-
-
-
-

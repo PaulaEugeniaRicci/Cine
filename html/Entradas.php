@@ -1,98 +1,104 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-	 <!-- Bootstrap CSS -->
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="../style/disenio.css ">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<head>
+			<!-- Bootstrap CSS -->
+			<meta charset="utf-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		     <link rel="stylesheet" href="../html/style/disenio.css ">
+		    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One">
+		    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-  	<title>Pelicula</title>
-</head>
-<body>
+		  	<title>Pelicula</title>
+	</head>
+	<body>
 
+		<!-- Barra de navegación principal -->
+		<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-navCinema" >
+			<a class="navbar-brand" href="../controllers/index.php">CINEMA</a>
+		</nav>
 		<div class="container_pelicula">
-	<!-- Barra de navegación principal -->
-		  	<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #000000;">
-			  	<div class="container-fluid">
-					  <a class="navbar-brand" href="../controllers/index.php">CINEMA</a>
-					  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					    <span class="navbar-toggler-icon"></span>
-					  </button>
-
-					 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav mr-auto">
-							<li class="nav-item">      	
-							</li>
-						 </ul>
-					 </div>
+		
+		<!-- detalles pelicula -->
+		<div class="container-fluid fixContainer">
+			<?php foreach ($this->pelicula as $peli){ ?>
+			<div class="row titulo_pelicula text-center text-uppercase">
+				<div class="col">
+					<h3><b><?= $peli['titulo'] ?></b></h3>
 				</div>
-			</nav>
-	<!-- detalles pelicula -->
-					<?php foreach ($this->pelicula as $peli){ ?>
-					<div class="titulo_pelicula"> <h3><?= $peli['titulo'] ?></h3></div>
-					<div class="container_pelicula_entradas">	
-						<div class="poster"><img src=" data:image;base64, <?= base64_encode($peli['poster']) ?>"> </div>
-						
-						<div class="detalles">
+			</div>
+
+			<div class="row mt-4 mb-4 text-center">
+				<div class="col-lg-6">
+					<img src=" data:image;base64, <?= base64_encode($peli['poster']) ?>">
+				</div>
+
+			<div class="detalles">
 				  			<p><b>Genero:</b> <?= $peli['genero'] ?> </p>
 				  			<p><b>Duración:</b> <?= $peli['duracion'] ?> Minutos </p>
 				  			<p><b>Idioma Original:</b> <?= $peli['descripcion_idioma'] ?> </p>
 				  			<p><b>Subtitulado:</b> <?= $peli['subtitulado'] ?> </p>
-			  			</div>
-			  			<form class="form_compra" id="form_compra" action="../controllers/pagos.php" method="POST">
+			</div>
+			
+			<div class="col-lg-4 mt-4">
+				<form class="form_compra" id="form_compra" action="../controllers/pagos.php" method="POST">
 
-			  				<!-- sucursal -->
-			  				<label for="sucursal">Seleccionar sucursal:</label>
-							 <select class="entrada_sucursal" id="sucursal" name= "sucursal">
-								<option value="" disabled selected>Seleccionar sucursal</option>
-							 <?php foreach ($this->sucursales as $suc) {
-				?>		       <option value="<?= $suc['id_sucursal'] ?>"> <?= $suc['localidad']?></option>
-				<?php } ?>  </select>
-							
-							<!-- fechas  -->
-							<h3>Horarios</h3>
-							<div class="container_fechas">				
-							</div>
-				
+				<!-- sucursal -->
+					<select class="form-control-sm" id="sucursal" name= "sucursal">
+						<option value="" disabled selected>Seleccionar sucursal</option>
+							<?php foreach ($this->sucursales as $suc) {
+							?>		
+							<option value="<?= $suc['id_sucursal'] ?>"> <?= $suc['localidad']?></option>
+							<?php } ?>  
+					</select>
+													
+				<!-- fechas  -->
+					<h3>Horarios</h3>
+					<div class="container_fechas">				
+					</div>
+										
 					<?php	} ?>
 
-							<!-- horarios  -->
-							<div class="horarios">
-							</div>
+				<!-- horarios  -->
+					<div class="horarios"></div>
 
-							<!-- precio y cantidad  -->
-							<table id="tblTickets">
-								<thead>
-									<tr>
-										<th>Tipo de Entrada</th>
-										<th>Cantidad</th>
-										<th>Costo</th>
-										<th>Subtotal</th>
-									</tr>
-								</thead>
-							</table>
-							
-							<input type="hidden" name="cant_entradas" id="cant_entradas" value="">	
-							<input type="hidden" name="monto_total" id="monto_total" value="">	
-							
-							<input type="hidden" name="id_proy" id="id_proy" value="">	
-							<button type="submit" id="btnConfirmarCompra" class="btn btn-warning btn_conf_pago">CONFIRMAR COMPRA</button>	
-						</form>
-						<a class="btn btn-primary" href="index.php" class="">Volver</a>
+				<!-- precio y cantidad  -->
+					<table id="tblTickets">
+						<thead>
+							<tr>
+								<th>Tipo de Tickets</th>
+								<th>Cantidad:</th>
+								<th>Costo:</th>
+								<th>Subtotal:</th>
+							</tr>
+						</thead>
+					</table>
+													
+					<input type="hidden" name="cant_entradas" id="cant_entradas" value="">	
+					<input type="hidden" name="monto_total" id="monto_total" value="">										
+					<input type="hidden" name="id_proy" id="id_proy" value="">	
+					<button type="submit" id="btnConfirmarCompra" class="btn btn-warning btn-block mb-2 font-weight-bold">CONFIRMAR COMPRA</button>	
+				</form>
+				<a class="btn btn-outline-primary btn-block" href="index.php" class="">Volver</a>
+			</div>
+		</div>
+	</div>
+
+ 	<!-- Pie de pagina -->	
+			<footer class="container-fluid">
+				<div class="row pt-4">
+					<div class="col">
+						<h5>CINEMA</h5>
+						<ul>
+							<li>Paula Ricci</li>
+							<li>Marco Romero</li>
+						</ul>
 					</div>
- 	<!-- Pie de pagina-->
-			<footer><div class="creditos">
-		<h5>CINEMA</h5>
-		
-		</div>
-		<div class="footer_login">
-			<a href="../controllers/listaPeliculas.php"><img src="../img/login.png" title="Acceso de personal"></a>
-		</div></footer>
-		</div>
-
+					<div class="col text-right">		
+							<a href="../controllers/listaPeliculas.php"><img src="../html/img/login.png" title="Acceso de personal"></a>
+					</div>
+				</div>
+			</footer>
 </body>
 </html>
 

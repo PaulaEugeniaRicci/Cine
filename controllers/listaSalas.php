@@ -21,7 +21,8 @@
 	//Borrar
 	if (!empty($_POST["id_baja"])){
 		try {
-			$sala->borrarSalas($_POST["id_baja"]);
+			$coso = $sala->borrarSalas($_POST["id_baja"]);
+			var_dump($coso);
 		}
 		catch (ExcepcionSala $e){
 			$vError->mensaje = $e->getMessage();

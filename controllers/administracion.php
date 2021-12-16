@@ -12,14 +12,14 @@
 		exit;
 	}
 
-	$users = new Usuarios;			
+	$user = new Usuarios;			
 	$v = new Administracion;		
 	$vError = new ExcepcionAdministracion;
 
 	//Borrar
 	if (!empty($_POST["id_baja"])){
 		try {
-			$users->borrarUsuarios($_POST["id_baja"]);
+			$user->borrarUsuarios($_POST["id_baja"]);
 		}
 		catch (ExcepcionAdministracion $e){
 			$vError->mensaje = $e->getMessage();
@@ -31,16 +31,16 @@
 
 	
 		try{ 
-			$todos = $emp->getTodos(); 
-			$v->empleados = $todos;
+			$todos = $user->getTodos(); 
+			$v->usuarios = $todos;
 		}
-		catch (ExcepcionEmpleado $e){ 
+		catch (ExcepcionAdministracion $e){ 
 			$vError->mensaje = $e->getMessage();
-			$vError->enlace = 'listaEmpleados.php';
+			$vError->enlace = 'administracion.php';
 			$vError-> render();
 			exit();
 		}
 
-	}
+	
 
 	$v-> render();

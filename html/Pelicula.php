@@ -66,7 +66,7 @@
 		
 		</div>
 		<div class="footer_login">
-			<a href="../controllers/listaPeliculas.php"><img src="../img/login.png" title="Acceso de personal"></a>
+			<a href="../controllers/listaPeliculas.php"><img src="../html/img/login.png" title="Acceso de personal"></a>
 		</div></footer>
 		</div>
 
