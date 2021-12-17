@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	 <!-- Bootstrap CSS 
+	 <!-- Bootstrap CSS -->
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
      <link rel="stylesheet" href="../html/style/disenio.css ">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  	   <script src="https://kit.fontawesome.com/187a5bbb1c.js" crossorigin="anonymous"></script>-->
+  	   <script src="https://kit.fontawesome.com/187a5bbb1c.js" crossorigin="anonymous"></script>
   	<title>Recaudacion</title>
 </head>
 <body>
@@ -50,11 +50,11 @@
 
 		<!-- Tabla -->
 			<div class="col-12 col-lg-10 "> <!-- zona forms y tablas -->
-
+					
 					<table class="table mt-2">
 						<tr>
 						<th colspan="8" class="titulo-formulario">
-							<h4>RECAUDACIÓN SUCURSAL: </h4>
+							<h4>RECAUDACIÓN SUCURSAL <?=$this->sucursalDetalle?></h4>
 						</th>
 						</tr>
 
@@ -86,32 +86,34 @@
 							<th>% FRENTE A MES ANTERIOR</th>
 						</tr>
 
-						<tr class="fila_tabla">ENERO</tr>
-						<tr class="fila_tabla">FEBRERO</tr>
-						<tr class="fila_tabla">MARZO</tr>
-						<tr class="fila_tabla">ABRIL</tr>
-						<tr class="fila_tabla" >MAYO</tr>
-						<tr class="fila_tabla">JUNIO</tr>
-						<tr class="fila_tabla">JULIO</tr>
-						<tr class="fila_tabla">AGOSTO</tr>
-						<tr class="fila_tabla">SEPTIEMBRE</tr>
-						<tr class="fila_tabla">OCTUBRE</tr>
-						<tr class="fila_tabla">NOVIEMBRE</tr>
-						<tr class="fila_tabla">DICIEMBRE</tr>
-
 						<?php
+						$mesAnterior = $acumVentas = $acumPorcentaje = $acumCrecimiento = 0;
 						foreach ($this->resumen as $r) 
 						{
+							$crecimiento = 	(int)$r['monto'] - $mesAnterior;
+							$porcentaje = ($crecimiento*100 )/ $r['monto'];
 							echo'<tr class="fila_tabla">
-									<td><div class= "celda">'.$r['fecha'].'</div>
-</td>
-									<td><div class= "celda">'.$r['monto'].'</div>
-</td>
-									<td><div class= "celda">'.$r['estado'].'</div>
-</td>
+
+									<td><div class= "celda">'.$r['fecha'].'</div></td>
+									<td><div class= "celda">'.'$'.$r['monto'].'</div></td>
+									<td><div class= "celda">'.'$'.$crecimiento.'</div></td>
+									<td><div class= "celda">'.$porcentaje.'%'.'</div></td>
 													
-								</tr>';			
+								</tr>';	
+							$mesAnterior = $r['monto'];
+
+							$acumVentas +=  $mesAnterior;
+							$acumCrecimiento += $crecimiento;
+							$acumPorcentaje += $porcentaje; 
+							
 						}
+						echo'<tr class="fila_tabla">
+
+									<td><div class= "celda">TOTAL</div></td>
+									<td><div class= "celda">'.'$'.$acumVentas.'</div></td>
+									<td><div class= "celda">'.'$'.$acumCrecimiento.'</div></td>
+									<td><div class= "celda">'.$acumPorcentaje.'%'.'</div></td>
+							</tr>';	
 						?>
 					</table>
 				</div>	

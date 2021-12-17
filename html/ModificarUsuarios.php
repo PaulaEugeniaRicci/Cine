@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	 <!-- Bootstrap CSS -->
+	 <!-- Bootstrap CSS-->
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
      <link rel="stylesheet" href="../html/style/disenio.css ">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik Mono One">
-      <script src="https://kit.fontawesome.com/187a5bbb1c.js" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/187a5bbb1c.js" crossorigin="anonymous"></script> 
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   	<title>Modificar usuarios</title>
@@ -57,28 +57,19 @@
 					<?php foreach ($this->usuarios as $u){ ?>
 					<div class="bloque_form_columns">		
 						<div class="form_column1 mt-2">	
-							<label for="email">E-mail</label>
-							<input class="input_general" type="text" name="email" maxlength="100" id="email" value="<?= $u['email'] ?>" required>
-							<label for="password">Password</label>
-							<input class="input_general" type="password" name="password" maxlength="60" id="password" required>
+							<div ><p>USUARIO <?=$u['id_empleado'].' - ' .$u['nombre'].'  '.$u['apellido'] ?></p></div>
+							
 							<label for="rol">Rol</label>
 							<input class="input_general" type="text" name="rol" maxlength="20" value="<?= $u['rol'] ?>" required>
 							
 						</div>
 						<div class="form_column2 mt-2">
-							<label for="usuario">Usuario</label>
-								<?php
-									echo'
-										<select class="input_general" name="usuario" id="usuario">
-										<option value="" disabled selected></option>';
-										foreach ($this->empleados as $e) {
-											echo '<option value="'.$e['id_empleado'].'">
-											'.$e['id_empleado'].' - ' .$e['nombre'].'  '.$e['apellido'].'
-											</option>';
-										}
-									echo'</select>'
-								?>
-								</div>
+							<label for="email">E-mail</label>
+							<input class="input_general" type="text" name="email" maxlength="100" id="email" value="<?= $u['email'] ?>" required>
+							<label for="password">Password</label>
+							<input class="input_general" type="password" name="password" maxlength="60" required>
+								
+						</div>
 					<?php } ?>
 					</div>
 					<div class="form_botones">				

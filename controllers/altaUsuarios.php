@@ -4,6 +4,7 @@
 
 	require'../fw/fw.php';
 	require'../models/Usuarios.php';
+	require'../models/Empleados.php';
 	require'../views/AltaUsuarios.php';
 	require'../views/ExcepcionAdministracion.php';
 	
@@ -14,13 +15,14 @@
 	}
 	
 	$user = new Usuarios;
+	$emp = new Empleados;
 	$vError = new ExcepcionAdministracion;
 
 	try{
 		
-		$usuarios= $user->getEmpleados();
+		$usuarios= $emp->getTodos();
 	}
-	catch(ExcepcionUsuario $e){
+	catch(ExcepcionEmpleado $e){
 		$vError->mensaje = $e->getMessage();
 		$vError->enlace = 'administracion.php';
 		$vError-> render();

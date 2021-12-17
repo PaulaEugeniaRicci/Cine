@@ -14,7 +14,8 @@
 		exit;
 	}
 
-	$pagos = new Pagos;			
+	$pagos = new Pagos;	
+	$suc = new Sucursales;		
 	$v = new Recaudacion;		
 	$vError = new ExcepcionAdministracion;
 
@@ -31,16 +32,38 @@
 			$vError-> render();
 			exit();
 		}
+
+		try{ 
+			$sucursal = $suc->getById($_POST["sucursal"]); 
+			$v->sucursalDetalle = strtoupper($sucursal[0]["descripcion"]);
+		}		
+		catch (ExcepcionSucursal $e){
+			$vError->mensaje = $e->getMessage();
+			$vError->enlace = 'recaudacion.php';
+			$vError-> render();
+			exit();
+		}
 	}
 	// Si el usuario recién ingresa o no eligió nada, se muestra por default una sucursal
 	else { 
 		try{ 
-			$resumenSucursal = $pagos->getResumenSucursal(1); 
+			$resumenSucursal = $pagos->getResumenSucursal(3); 
 			$v->resumen = $resumenSucursal;
 		}		
 		catch (ExcepcionPago $e){
 			$vError->mensaje = $e->getMessage();
 			$vError->enlace = 'listaProyecciones.php';
+			$vError-> render();
+			exit();
+		}
+
+		try{ 
+			$sucursal = $suc->getById(3); 
+			$v->sucursalDetalle = strtoupper($sucursal[0]["descripcion"]);
+		}		
+		catch (ExcepcionSucursal $e){
+			$vError->mensaje = $e->getMessage();
+			$vError->enlace = 'recaudacion.php';
 			$vError-> render();
 			exit();
 		}

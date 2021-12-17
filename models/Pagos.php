@@ -84,7 +84,16 @@
 		//Parte administrativa - recaudacion
 
 		public function getResumenSucursal($sucursal){
-			$this->db->query("SELECT * FROM pagos");
+			$this->db->query("SELECT p.id_pago, DATE_FORMAT(p.fecha,'%m/%Y') as fecha, SUM(p.monto) as monto, p.estado
+				FROM pagos p
+				WHERE p.id_pago IN (SELECT e.id_pago FROM entradas e
+					JOIN proyecciones proy ON proy.id_proyeccion = e.id_proyeccion
+					JOIN salas sa ON proy.id_sala = sa.id_sala
+					WHERE sa.id_sucursal = $sucursal) AND p.estado = 'pendiente'
+				GROUP BY DATE_FORMAT(p.fecha,'%m/%Y')
+				ORDER BY DATE_FORMAT(p.fecha,'%m/%Y') DESC
+				LIMIT 12");
+			return $this->db->fetchAll();
 		}
 	}
 	class ExcepcionPago extends Exception {}

@@ -90,6 +90,8 @@
 										<a href=modificarUsuarios.php?ide='.$u['id_empleado'].' class="btn_modificar">Modificar</a>
 
 										<button name="eliminar" class="btn_eliminar" id='.$u['id_empleado'].' >Eliminar</button>
+
+										
 									</div>
 </td>					
 								</tr>';			

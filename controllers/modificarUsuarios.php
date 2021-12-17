@@ -48,15 +48,7 @@
 		}
 	}
 
-	try{
-		$empleados= $user->getEmpleados();
-	}
-	catch(ExcepcionUsuario $e){
-		$vError->mensaje = $e->getMessage();
-		$vError->enlace = 'administracion.php';
-		$vError-> render();
-		exit();
-	}
+
 	try{
 		$usuarios = $user->getUsuarioById($_GET['ide']);
 	}
@@ -69,5 +61,4 @@
 
 	$v = new ModificarUsuarios;
 	$v->usuarios = $usuarios;
-	$v->empleados = $empleados;
 	$v->render();

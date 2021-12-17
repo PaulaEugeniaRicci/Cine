@@ -54,9 +54,9 @@
 					<div class="bloque_form_columns">		
 						<div class="form_column1 mt-2">	
 							<label for="email">E-mail</label>
-							<input class="input_general" type="text" name="email" maxlength="100" id="nombre" required>
+							<input class="input_general" type="text" name="email" maxlength="100" required>
 							<label for="password">Password</label>
-							<input class="input_general" type="password" name="Password" maxlength="60" id="apellido" required>
+							<input class="input_general" type="password" name="password" maxlength="60"  required>
 							<label for="rol">Rol</label>
 							<input class="input_general" type="text" name="rol" maxlength="20" required>
 							

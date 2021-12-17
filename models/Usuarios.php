@@ -6,14 +6,6 @@ class Usuarios extends Model {
 
   public function validarSesion($email, $password) {
     
-
-    if(strlen($email) < 5 || strlen($email) > 30)
-    {
-      echo 'Error: email fuera de rango.';
-      header("Location: ../controllers/login.php");
-      exit;
-    }
-
     $email = $this->db->escape($email);
     $email = str_replace("%", "\%", $email);
     $email = str_replace("", "\\", $email);
@@ -39,11 +31,6 @@ class Usuarios extends Model {
       return $this->db->fetchAll();
     }
 
-    public function getEmpleados(){
-      $this->db->query("SELECT * FROM empleados e");
-      return $this->db->fetchAll();
-    }
-
     //BUSCAR POR ID
     public function getUsuarioById($id){
 
@@ -51,7 +38,10 @@ class Usuarios extends Model {
       if(!ctype_digit($id)) throw new ExcepcionUsuario("Error en el ID del usuario.");
       if($id < 1) throw new ExcepcionUsuario("Error en el ID del usuario.");
       //
-      $this->db->query("SELECT * FROM usuarios WHERE id_empleado = $id");
+      $this->db->query("SELECT e.id_empleado, e.nombre, e.apellido, u.rol, u.email
+                FROM empleados e
+                JOIN usuarios u ON e.id_empleado = u.id_empleado 
+                WHERE u.id_empleado = $id");
       return $this->db->fetchAll();
     }
 
